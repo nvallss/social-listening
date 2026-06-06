@@ -134,7 +134,7 @@ ${context}`;
           'X-Title': 'Natura Bisse Brand Intelligence',
         },
         body: JSON.stringify({
-          model: 'google/gemma-4-26b-a4b:free',
+          model: 'google/gemma-4-26b-a4b-it:free',
           max_tokens: 1000,
           messages: [
             { role: 'system', content: systemPrompt },
