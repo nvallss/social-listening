@@ -116,20 +116,43 @@ ${context}`;
       { role: 'user', content: message }
     ];
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    // Use Ollama (local via tunnel) if OPENAI_BASE_URL is set, otherwise fallback to OpenRouter
+    const useOllama = !!process.env.OPENAI_BASE_URL;
+    const apiUrl = useOllama
+      ? `${process.env.OPENAI_BASE_URL}/chat/completions`
+      : 'https://openrouter.ai/api/v1/chat/completions';
+
+    const model = useOllama ? 'llama3' : 'anthropic/claude-3.5-haiku';
+
+    const bodyPayload = useOllama
+      ? {
+          model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            ...messages
+          ],
+          stream: false,
+        }
+      : {
+          model,
+          messages,
+          system: systemPrompt,
+          max_tokens: 1000,
+        };
+
+    const headers = useOllama
+      ? { 'Content-Type': 'application/json' }
+      : {
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://natura-bisse-dashboard.onrender.com',
+          'X-Title': 'Natura Bissé Brand Intelligence',
+        };
+
+    const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://natura-bisse-dashboard.onrender.com',
-        'X-Title': 'Natura Bissé Brand Intelligence',
-      },
-      body: JSON.stringify({
-        model: 'anthropic/claude-3.5-haiku',
-        messages,
-        system: systemPrompt,
-        max_tokens: 1000,
-      }),
+      headers,
+      body: JSON.stringify(bodyPayload),
     });
 
     const result = await response.json();
