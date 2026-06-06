@@ -134,7 +134,7 @@ ${context}`;
           'X-Title': 'Natura Bisse Brand Intelligence',
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-3.5-haiku',
+          model: 'meta-llama/llama-3.1-8b-instruct:free',
           max_tokens: 1000,
           messages: [
             { role: 'system', content: systemPrompt },
