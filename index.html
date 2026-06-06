@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natura Bissé · Brand Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0a0a0b;
+    --bg2:      #111113;
+    --bg3:      #18181c;
+    --border:   #2a2a30;
+    --text:     #e8e4dc;
+    --muted:    #6b6870;
+    --accent:   #c9a96e;
+    --accent2:  #8b5e3c;
+    --ig:       #e1306c;
+    --tt:       #69c9d0;
+    --gn:       #4285f4;
+    --rd:       #ff4500;
+    --md:       #00ab6c;
+    --rss:      #f26522;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .shell {
+    display: grid;
+    grid-template-columns: 220px 1fr 360px;
+    grid-template-rows: 56px 1fr;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── Topbar ── */
+  .topbar {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+    background: var(--bg);
+    position: relative;
+    z-index: 10;
+  }
+  .topbar-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 300;
+    letter-spacing: .12em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .topbar-logo span { color: var(--muted); font-style: italic; }
+  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
+  .topbar-subtitle {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  .pill {
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+  }
+  .pill.live { border-color: var(--accent); color: var(--accent); }
+  .pill.live::before { content: '●'; margin-right: 5px; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    overflow-y: auto;
+  }
+  .sidebar-section {
+    padding: 0 18px;
+    margin-bottom: 28px;
+  }
+  .sidebar-label {
+    font-size: 9px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .source-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    transition: background .15s;
+    cursor: default;
+  }
+  .source-item:hover { background: var(--bg3); }
+  .source-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .source-name { display: flex; align-items: center; color: var(--text); }
+  .source-count {
+    font-size: 11px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Main ── */
+  .main {
+    overflow-y: auto;
+    padding: 28px 32px;
+    background: var(--bg);
+  }
+
+  /* ── KPI row ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .kpi {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .kpi-label {
+    font-size: 9px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .kpi-sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* ── Chart section ── */
+  .section-title {
+    font-size: 9px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .chart-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 80px; }
+  .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 4px; height: 100%; }
+  .bar {
+    width: 100%;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent2) 100%);
+    border-radius: 3px 3px 0 0;
+    min-height: 2px;
+    transition: height .6s cubic-bezier(.23,1,.32,1);
+    position: relative;
+  }
+  .bar:hover { filter: brightness(1.2); }
+  .bar-label { font-size: 9px; color: var(--muted); white-space: nowrap; }
+  .bar-val { font-size: 9px; color: var(--accent); }
+
+  /* ── Feed ── */
+  .feed { display: flex; flex-direction: column; gap: 10px; }
+  .mention-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: border-color .15s, transform .15s;
+    cursor: default;
+  }
+  .mention-card:hover { border-color: var(--accent2); transform: translateX(2px); }
+  .mention-header { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .badge {
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .mention-date { font-size: 10px; color: var(--muted); margin-left: auto; }
+  .mention-title { font-size: 12px; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+  .mention-snippet { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .mention-stats { display: flex; gap: 10px; margin-top: 8px; font-size: 10px; color: var(--muted); }
+  .mention-link {
+    font-size: 10px;
+    color: var(--accent);
+    text-decoration: none;
+    margin-left: auto;
+    letter-spacing: .05em;
+  }
+  .mention-link:hover { text-decoration: underline; }
+
+  /* ── Chat panel ── */
+  .chat-panel {
+    background: var(--bg2);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .chat-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .chat-subtitle { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .chat-bubble {
+    max-width: 92%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    line-height: 1.55;
+    font-size: 12px;
+    animation: fadeUp .2s ease;
+  }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: none; } }
+  .chat-bubble.user {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    align-self: flex-end;
+    color: var(--text);
+    border-radius: 10px 10px 2px 10px;
+  }
+  .chat-bubble.assistant {
+    background: linear-gradient(135deg, #1a1814, #161412);
+    border: 1px solid var(--accent2);
+    align-self: flex-start;
+    color: var(--text);
+    border-radius: 2px 10px 10px 10px;
+  }
+  .chat-bubble.assistant .role-tag {
+    font-size: 9px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 5px;
+    display: block;
+  }
+  .chat-bubble.thinking {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    align-self: flex-start;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .typing-dots span {
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: var(--muted);
+    border-radius: 50%;
+    margin-right: 3px;
+    animation: dot .8s infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: .2s; }
+  .typing-dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes dot { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+
+  .chat-suggestions {
+    padding: 0 20px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    font-size: 10px;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all .15s;
+    background: none;
+    font-family: 'DM Mono', monospace;
+    line-height: 1;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); background: #c9a96e0d; }
+
+  .chat-input-row {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .chat-input {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    outline: none;
+    transition: border-color .15s;
+    resize: none;
+    height: 38px;
+    line-height: 1.4;
+  }
+  .chat-input:focus { border-color: var(--accent2); }
+  .chat-input::placeholder { color: var(--muted); }
+  .send-btn {
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    width: 38px; height: 38px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
+    flex-shrink: 0;
+  }
+  .send-btn:hover { background: #d4b47a; }
+  .send-btn:disabled { background: var(--bg3); cursor: not-allowed; }
+  .send-btn svg { fill: var(--bg); width: 14px; height: 14px; }
+
+  /* ── Scrollbars ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* ── Loading state ── */
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+    border-radius: 4px;
+    height: 14px;
+  }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-logo">Natura Bissé <span>Intelligence</span></div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-subtitle">Brand Monitor · Social Listening</div>
+    <div class="topbar-right">
+      <div class="pill live" id="live-pill">En vivo</div>
+      <div class="pill" id="last-update">—</div>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Fuentes</div>
+      <div id="sources-list">
+        <div class="skeleton" style="margin-bottom:8px"></div>
+        <div class="skeleton" style="margin-bottom:8px"></div>
+        <div class="skeleton" style="margin-bottom:8px"></div>
+        <div class="skeleton"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-label">Total menciones</div>
+        <div class="kpi-value" id="kpi-total">—</div>
+        <div class="kpi-sub">últimos 2 meses</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Esta semana</div>
+        <div class="kpi-value" id="kpi-week">—</div>
+        <div class="kpi-sub">nuevas menciones</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Mayor engagement</div>
+        <div class="kpi-value" id="kpi-top-source">—</div>
+        <div class="kpi-sub" id="kpi-top-source-sub">fuente principal</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Top interacción</div>
+        <div class="kpi-value" id="kpi-top-eng">—</div>
+        <div class="kpi-sub">likes + plays</div>
+      </div>
+    </div>
+
+    <!-- Bar chart -->
+    <div class="chart-wrap">
+      <div class="section-title">Evolución semanal</div>
+      <div class="bar-chart" id="bar-chart">
+        <div class="bar-col"><div class="skeleton" style="height:100%;width:100%"></div></div>
+        <div class="bar-col"><div class="skeleton" style="height:100%;width:100%"></div></div>
+        <div class="bar-col"><div class="skeleton" style="height:100%;width:100%"></div></div>
+        <div class="bar-col"><div class="skeleton" style="height:100%;width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- Feed -->
+    <div class="section-title">Menciones recientes</div>
+    <div class="feed" id="feed">
+      <div class="mention-card"><div class="skeleton"></div></div>
+      <div class="mention-card"><div class="skeleton"></div></div>
+      <div class="mention-card"><div class="skeleton"></div></div>
+    </div>
+  </main>
+
+  <!-- CHAT -->
+  <aside class="chat-panel">
+    <div class="chat-header">
+      <div class="chat-title">Asistente de Marca</div>
+      <div class="chat-subtitle">Pregunta sobre menciones, tendencias o influencers</div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-bubble assistant">
+        <span class="role-tag">Asistente</span>
+        Hola — soy tu asistente de inteligencia de marca para Natura Bissé. Puedo analizar menciones, identificar tendencias y responderte preguntas sobre los datos recientes.
+      </div>
+    </div>
+    <div class="chat-suggestions">
+      <button class="chip" onclick="sendSuggestion(this)">¿Qué fuente tiene más menciones?</button>
+      <button class="chip" onclick="sendSuggestion(this)">Top influencers esta semana</button>
+      <button class="chip" onclick="sendSuggestion(this)">Menciones negativas recientes</button>
+      <button class="chip" onclick="sendSuggestion(this)">Resumen de TikTok</button>
+    </div>
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="chat-input" placeholder="Pregunta algo sobre las menciones…" rows="1"></textarea>
+      <button class="send-btn" id="send-btn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+        </svg>
+      </button>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+const SOURCE_COLORS = {
+  'Instagram':   '#e1306c',
+  'TikTok':      '#69c9d0',
+  'Google News': '#4285f4',
+  'Reddit':      '#ff4500',
+  'Medium':      '#00ab6c',
+  'RSS':         '#f26522',
+};
+
+let chatHistory = [];
+let statsData = null;
+
+// ── Load stats ────────────────────────────────────────────────────────────────
+async function loadStats() {
+  try {
+    const res = await fetch('/api/stats');
+    const data = await res.json();
+    statsData = data;
+    renderStats(data);
+  } catch (e) {
+    console.error('Error cargando stats:', e);
+  }
+}
+
+function renderStats(data) {
+  // KPIs
+  document.getElementById('kpi-total').textContent = data.total;
+
+  const thisWeek = data.by_week?.find(w => w.label === 'Esta semana');
+  document.getElementById('kpi-week').textContent = thisWeek?.total ?? 0;
+
+  const topSrc = Object.entries(data.by_source || {}).sort((a,b)=>b[1]-a[1])[0];
+  if (topSrc) {
+    document.getElementById('kpi-top-source').textContent = topSrc[1];
+    document.getElementById('kpi-top-source-sub').textContent = topSrc[0];
+  }
+
+  const topEng = data.top_engagement?.[0];
+  if (topEng) {
+    document.getElementById('kpi-top-eng').textContent =
+      ((topEng.likes || 0) + (topEng.plays || 0)).toLocaleString('es-ES');
+  }
+
+  // Last update
+  document.getElementById('last-update').textContent =
+    'Act. ' + new Date().toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+
+  // Sidebar sources
+  const list = document.getElementById('sources-list');
+  list.innerHTML = '';
+  for (const [src, count] of Object.entries(data.by_source || {}).sort((a,b)=>b[1]-a[1])) {
+    const color = SOURCE_COLORS[src] || '#888';
+    list.innerHTML += `
+      <div class="source-item">
+        <div class="source-name">
+          <div class="source-dot" style="background:${color}"></div>
+          ${src}
+        </div>
+        <div class="source-count">${count}</div>
+      </div>`;
+  }
+
+  // Bar chart
+  const weeks = data.by_week || [];
+  const maxVal = Math.max(...weeks.map(w => w.total), 1);
+  const chart = document.getElementById('bar-chart');
+  chart.innerHTML = weeks.map(w => `
+    <div class="bar-col">
+      <div class="bar-val">${w.total}</div>
+      <div class="bar" style="height:${Math.max(4, (w.total / maxVal) * 68)}px" title="${w.label}: ${w.total}"></div>
+      <div class="bar-label">${w.label}</div>
+    </div>
+  `).join('');
+
+  // Feed
+  const feed = document.getElementById('feed');
+  feed.innerHTML = '';
+  for (const m of (data.recent || [])) {
+    const color = SOURCE_COLORS[m.fuente] || '#888';
+    const date = m.fecha ? new Date(m.fecha).toLocaleDateString('es-ES', {day:'2-digit', month:'short'}) : '';
+    const stats = [
+      m.likes    != null ? `❤️ ${m.likes.toLocaleString('es-ES')}` : null,
+      m.plays    != null ? `▶️ ${m.plays.toLocaleString('es-ES')}` : null,
+      m.comentarios != null ? `💬 ${m.comentarios}` : null,
+      m.score    != null ? `⬆️ ${m.score}` : null,
+    ].filter(Boolean).join(' · ');
+
+    feed.innerHTML += `
+      <div class="mention-card">
+        <div class="mention-header">
+          <span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${m.fuente}</span>
+          <span class="mention-date">${date}</span>
+          ${m.url ? `<a class="mention-link" href="${m.url}" target="_blank">↗ ver</a>` : ''}
+        </div>
+        <div class="mention-title">${m.titulo || ''}</div>
+        ${m.snippet ? `<div class="mention-snippet">${m.snippet.slice(0, 140)}…</div>` : ''}
+        ${stats ? `<div class="mention-stats">${stats}</div>` : ''}
+      </div>`;
+  }
+}
+
+// ── Chat ──────────────────────────────────────────────────────────────────────
+function sendSuggestion(btn) {
+  document.getElementById('chat-input').value = btn.textContent;
+  sendMessage();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  input.value = '';
+  appendBubble('user', msg);
+  chatHistory.push({ role: 'user', content: msg });
+
+  const thinkingId = appendThinking();
+  document.getElementById('send-btn').disabled = true;
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: msg, history: chatHistory.slice(-10) }),
+    });
+    const data = await res.json();
+    removeThinking(thinkingId);
+    const reply = data.reply || data.error || 'Sin respuesta';
+    appendBubble('assistant', reply);
+    chatHistory.push({ role: 'assistant', content: reply });
+  } catch (e) {
+    removeThinking(thinkingId);
+    appendBubble('assistant', 'Error al conectar con el servidor.');
+  }
+
+  document.getElementById('send-btn').disabled = false;
+}
+
+function appendBubble(role, content) {
+  const el = document.createElement('div');
+  el.className = `chat-bubble ${role}`;
+  if (role === 'assistant') {
+    el.innerHTML = `<span class="role-tag">Asistente</span>${escapeHtml(content).replace(/\n/g, '<br>')}`;
+  } else {
+    el.textContent = content;
+  }
+  const msgs = document.getElementById('chat-messages');
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+  return el;
+}
+
+function appendThinking() {
+  const id = 'thinking-' + Date.now();
+  const el = document.createElement('div');
+  el.id = id;
+  el.className = 'chat-bubble thinking';
+  el.innerHTML = `<span class="typing-dots"><span></span><span></span><span></span></span> Analizando menciones…`;
+  document.getElementById('chat-messages').appendChild(el);
+  document.getElementById('chat-messages').scrollTop = 99999;
+  return id;
+}
+
+function removeThinking(id) {
+  document.getElementById(id)?.remove();
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Enter to send
+document.getElementById('chat-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+loadStats();
+setInterval(loadStats, 5 * 60 * 1000); // refresh every 5 min
+</script>
+</body>
+</html>
