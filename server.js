@@ -134,7 +134,7 @@ ${context}`;
           'X-Title': 'Natura Bisse Brand Intelligence',
         },
         body: JSON.stringify({
-          model: 'nvidia/nemotron-3.5-content-safety:free',
+          model: 'nousresearch/hermes-3-llama-3.1-405b:free',
           max_tokens: 1000,
           messages: [
             { role: 'system', content: systemPrompt },
