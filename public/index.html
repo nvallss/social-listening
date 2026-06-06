@@ -5,32 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Natura Bissé · Brand Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:       #ffffff;
-    --bg2:      #f8f6f3;
-    --bg3:      #f1ede8;
-    --border:   #d8d0c7;
-    --text:     #1b1b1b;
-    --muted:    #6f6256;
-    --accent:   #3a2b22;
-    --accent2:  #5b4335;
-    --ig:       #e1306c;
-    --tt:       #69c9d0;
-    --gn:       #4285f4;
-    --rd:       #ff4500;
-    --md:       #00ab6c;
-    --rss:      #f26522;
+    --bg:      #f7f5f2;
+    --bg2:     #ffffff;
+    --bg3:     #f0ede8;
+    --border:  #e2ddd7;
+    --text:    #1a1a18;
+    --muted:   #8a8680;
+    --accent:  #8b6914;
+    --accent2: #c4a55a;
+    --accent3: #f0e8d5;
+    --pos:     #2d6a4f;
+    --pos-bg:  #d8f3dc;
+    --neg:     #9b2226;
+    --neg-bg:  #fde8e8;
+    --neu:     #495057;
+    --neu-bg:  #e9ecef;
+    --ig:      #e1306c;
+    --tt:      #010101;
+    --gn:      #4285f4;
+    --rd:      #ff4500;
+    --md:      #00ab6c;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
     line-height: 1.6;
     min-height: 100vh;
   }
@@ -38,8 +42,8 @@
   /* ── Layout ── */
   .shell {
     display: grid;
-    grid-template-columns: 220px 1fr 360px;
-    grid-template-rows: 56px 1fr;
+    grid-template-columns: 200px 1fr 340px;
+    grid-template-rows: 60px 1fr;
     height: 100vh;
     overflow: hidden;
   }
@@ -51,40 +55,24 @@
     align-items: center;
     padding: 0 28px;
     border-bottom: 1px solid var(--border);
+    background: var(--bg2);
     gap: 16px;
-    background: var(--bg);
-    position: relative;
-    z-index: 10;
   }
   .topbar-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 19px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
     font-weight: 300;
-    letter-spacing: .12em;
-    color: var(--accent);
-    white-space: nowrap;
+    letter-spacing: .15em;
+    color: var(--text);
   }
-  .topbar-logo span { color: var(--muted); font-style: italic; }
+  .topbar-logo em { font-style: italic; color: var(--accent); }
   .topbar-sep { width: 1px; height: 20px; background: var(--border); }
-  .topbar-subtitle {
-    font-size: 10px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-  .pill {
-    font-size: 10px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--muted);
-  }
-  .pill.live { border-color: var(--accent); color: var(--accent); }
+  .topbar-sub { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
+  .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .pill { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 10px; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); background: var(--bg2); }
+  .pill.live { border-color: var(--pos); color: var(--pos); }
   .pill.live::before { content: '●'; margin-right: 5px; animation: blink 2s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:.3} }
 
   /* ── Sidebar ── */
   .sidebar {
@@ -93,357 +81,134 @@
     padding: 24px 0;
     overflow-y: auto;
   }
-  .sidebar-section {
-    padding: 0 18px;
-    margin-bottom: 28px;
-  }
-  .sidebar-label {
-    font-size: 9px;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
-  .source-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 10px;
-    border-radius: 6px;
-    margin-bottom: 4px;
-    transition: background .15s;
-    cursor: default;
-  }
-  .source-item:hover { background: var(--bg3); }
-  .source-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    margin-right: 8px;
-    flex-shrink: 0;
-  }
-  .source-name { display: flex; align-items: center; color: var(--text); }
-  .source-count {
-    font-size: 11px;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
+  .sidebar-section { padding: 0 16px; margin-bottom: 28px; }
+  .sidebar-label { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .source-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; border-radius: 5px; margin-bottom: 3px; cursor: pointer; transition: background .15s; }
+  .source-item:hover, .source-item.active { background: var(--accent3); }
+  .source-dot { width: 7px; height: 7px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+  .source-name { display: flex; align-items: center; color: var(--text); font-size: 11px; }
+  .source-count { font-size: 10px; color: var(--muted); }
 
   /* ── Main ── */
-  .main {
-    overflow-y: auto;
-    padding: 28px 32px;
-    background: var(--bg);
-  }
+  .main { overflow-y: auto; padding: 24px 28px; background: var(--bg); }
 
   /* ── KPI row ── */
-  .kpi-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 28px;
-  }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
   .kpi {
     background: var(--bg2);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px 20px;
-    position: relative;
-    overflow: hidden;
-  }
-  .kpi::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-  }
-  .kpi-label {
-    font-size: 9px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-  .kpi-value {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 38px;
-    font-weight: 300;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .kpi-sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
-
-  /* ── Chart section ── */
-  .section-title {
-    font-size: 9px;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-  .chart-wrap {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 24px;
-  }
-  .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 80px; }
-  .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 4px; height: 100%; }
-  .bar {
-    width: 100%;
-    background: linear-gradient(180deg, var(--accent) 0%, var(--accent2) 100%);
-    border-radius: 3px 3px 0 0;
-    min-height: 2px;
-    transition: height .6s cubic-bezier(.23,1,.32,1);
-    position: relative;
-  }
-  .bar:hover { filter: brightness(1.2); }
-  .bar-label { font-size: 9px; color: var(--muted); white-space: nowrap; }
-  .bar-val { font-size: 9px; color: var(--accent); }
-
-  /* ── Feed ── */
-  .feed { display: flex; flex-direction: column; gap: 10px; }
-  .mention-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 14px 16px;
-    transition: border-color .15s, transform .15s;
-    cursor: default;
+    padding: 16px 18px;
+    position: relative;
   }
-  .mention-card:hover { border-color: var(--accent2); transform: translateX(2px); }
-  .mention-header { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
-  .badge {
-    font-size: 9px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 400;
-    white-space: nowrap;
+  .kpi-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .kpi-value { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--text); line-height: 1; }
+  .kpi-value.pos { color: var(--pos); }
+  .kpi-value.neg { color: var(--neg); }
+  .kpi-sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
+  .kpi-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+  .kpi-bar-fill { height: 100%; border-radius: 2px; transition: width .8s; }
+
+  /* ── Sentiment gauge ── */
+  .sentiment-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 24px; }
+  .sent-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
+  .sent-icon { font-size: 18px; }
+  .sent-label { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+  .sent-val { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; }
+  .sent-val.pos { color: var(--pos); }
+  .sent-val.neg { color: var(--neg); }
+  .sent-val.neu { color: var(--neu); }
+  .sent-bar { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .sent-bar-fill { height: 100%; border-radius: 2px; }
+
+  /* ── Chart ── */
+  .chart-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 24px; }
+  .section-title { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 72px; }
+  .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 3px; height: 100%; justify-content: flex-end; }
+  .bar { width: 100%; background: linear-gradient(180deg, var(--accent2), var(--accent)); border-radius: 3px 3px 0 0; min-height: 2px; transition: height .6s cubic-bezier(.23,1,.32,1); }
+  .bar:hover { filter: brightness(1.1); }
+  .bar-label { font-size: 8px; color: var(--muted); white-space: nowrap; }
+  .bar-val { font-size: 9px; color: var(--accent); font-weight: 400; }
+
+  /* ── Month groups ── */
+  .month-group { margin-bottom: 28px; }
+  .month-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
   }
+  .month-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; text-transform: capitalize; color: var(--text); letter-spacing: .05em; }
+  .month-count { font-size: 10px; color: var(--muted); }
+  .month-sentiment { margin-left: auto; display: flex; gap: 6px; }
+  .mini-badge { font-size: 9px; padding: 2px 7px; border-radius: 10px; }
+  .mini-badge.pos { background: var(--pos-bg); color: var(--pos); }
+  .mini-badge.neg { background: var(--neg-bg); color: var(--neg); }
+  .mini-badge.neu { background: var(--neu-bg); color: var(--neu); }
+
+  /* ── Feed cards ── */
+  .mention-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 7px;
+    padding: 12px 14px; margin-bottom: 8px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .mention-card:hover { border-color: var(--accent2); box-shadow: 0 2px 8px rgba(139,105,20,.08); }
+  .mention-header { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; flex-wrap: wrap; }
+  .badge { font-size: 9px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; font-weight: 400; white-space: nowrap; }
+  .sentiment-badge { font-size: 9px; padding: 2px 7px; border-radius: 10px; }
+  .sentiment-badge.positivo { background: var(--pos-bg); color: var(--pos); }
+  .sentiment-badge.negativo { background: var(--neg-bg); color: var(--neg); }
+  .sentiment-badge.neutro { background: var(--neu-bg); color: var(--neu); }
   .mention-date { font-size: 10px; color: var(--muted); margin-left: auto; }
-  .mention-title { font-size: 12px; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+  .mention-title { font-size: 12px; color: var(--text); line-height: 1.4; margin-bottom: 3px; font-weight: 400; }
   .mention-snippet { font-size: 11px; color: var(--muted); line-height: 1.5; }
-  .mention-stats { display: flex; gap: 10px; margin-top: 8px; font-size: 10px; color: var(--muted); }
-  .mention-link {
-    font-size: 10px;
-    color: var(--accent);
-    text-decoration: none;
-    margin-left: auto;
-    letter-spacing: .05em;
-  }
+  .mention-stats { display: flex; gap: 8px; margin-top: 6px; font-size: 10px; color: var(--muted); align-items: center; }
+  .mention-link { font-size: 10px; color: var(--accent); text-decoration: none; margin-left: auto; }
   .mention-link:hover { text-decoration: underline; }
 
-  /* ── Chat panel ── */
-  .chat-panel {
-    background: var(--bg2);
-    border-left: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .chat-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-  .chat-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    font-weight: 300;
-    color: var(--accent);
-    letter-spacing: .08em;
-  }
-  .chat-subtitle { font-size: 10px; color: var(--muted); margin-top: 2px; }
-  .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-  }
-  .chat-bubble {
-    max-width: 92%;
-    padding: 10px 14px;
-    border-radius: 10px;
-    line-height: 1.55;
-    font-size: 12px;
-    animation: fadeUp .2s ease;
-  }
-  @keyframes fadeUp { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: none; } }
-  .chat-bubble.user {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    align-self: flex-end;
-    color: var(--text);
-    border-radius: 10px 10px 2px 10px;
-  }
-  .chat-bubble.assistant {
-    background: linear-gradient(135deg, #1a1814, #161412);
-    border: 1px solid var(--accent2);
-    align-self: flex-start;
-    color: var(--text);
-    border-radius: 2px 10px 10px 10px;
-  }
-  .chat-bubble.assistant .role-tag {
-    font-size: 9px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 5px;
-    display: block;
-  }
-  .chat-bubble.thinking {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    align-self: flex-start;
-    color: var(--muted);
-    font-style: italic;
-  }
-  .typing-dots span {
-    display: inline-block;
-    width: 4px; height: 4px;
-    background: var(--muted);
-    border-radius: 50%;
-    margin-right: 3px;
-    animation: dot .8s infinite;
-  }
-  .typing-dots span:nth-child(2) { animation-delay: .2s; }
-  .typing-dots span:nth-child(3) { animation-delay: .4s; }
-  @keyframes dot { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
-
-  .chat-suggestions {
-    padding: 0 20px 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .chip {
-    font-size: 10px;
-    padding: 5px 10px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    cursor: pointer;
-    color: var(--muted);
-    transition: all .15s;
-    background: none;
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1;
-  }
-  .chip:hover { border-color: var(--accent); color: var(--accent); background: #c9a96e0d; }
-
-  .chat-input-row {
-    padding: 14px 20px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 8px;
-    flex-shrink: 0;
-  }
-  .chat-input {
-    flex: 1;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 9px 14px;
-    color: var(--text);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    outline: none;
-    transition: border-color .15s;
-    resize: none;
-    height: 38px;
-    line-height: 1.4;
-  }
+  /* ── Chat ── */
+  .chat-panel { background: var(--bg2); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+  .chat-header { padding: 14px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .chat-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; color: var(--text); letter-spacing: .05em; }
+  .chat-subtitle { font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .chat-bubble { max-width: 94%; padding: 9px 12px; border-radius: 8px; line-height: 1.55; font-size: 11px; animation: fadeUp .2s ease; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+  .chat-bubble.user { background: var(--accent3); border: 1px solid var(--border); align-self: flex-end; border-radius: 8px 8px 2px 8px; }
+  .chat-bubble.assistant { background: var(--bg2); border: 1px solid var(--border); align-self: flex-start; border-radius: 2px 8px 8px 8px; }
+  .chat-bubble.assistant .role-tag { font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; display: block; }
+  .chat-bubble.thinking { background: var(--bg3); border: 1px solid var(--border); align-self: flex-start; color: var(--muted); font-style: italic; }
+  .typing-dots span { display:inline-block;width:3px;height:3px;background:var(--muted);border-radius:50%;margin-right:3px;animation:dot .8s infinite; }
+  .typing-dots span:nth-child(2){animation-delay:.2s}
+  .typing-dots span:nth-child(3){animation-delay:.4s}
+  @keyframes dot{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+  .chat-suggestions { padding: 0 16px 10px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip { font-size: 10px; padding: 4px 9px; border: 1px solid var(--border); border-radius: 14px; cursor: pointer; color: var(--muted); transition: all .15s; background: none; font-family: 'DM Mono', monospace; }
+  .chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent3); }
+  .chat-input-row { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 7px; flex-shrink: 0; }
+  .chat-input { flex:1; background:var(--bg3); border:1px solid var(--border); border-radius:7px; padding:8px 12px; color:var(--text); font-family:'DM Mono',monospace; font-size:11px; outline:none; resize:none; height:36px; line-height:1.4; transition:border-color .15s; }
   .chat-input:focus { border-color: var(--accent2); }
   .chat-input::placeholder { color: var(--muted); }
-  .send-btn {
-    background: var(--accent);
-    border: none;
-    border-radius: 8px;
-    width: 38px; height: 38px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .15s;
-    flex-shrink: 0;
-  }
-  .send-btn:hover { background: #d4b47a; }
-  .send-btn:disabled { background: var(--bg3); cursor: not-allowed; }
-  .send-btn svg { fill: var(--bg); width: 14px; height: 14px; }
-
-  /* ── Scrollbars ── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
-  /* ── Loading state ── */
-  .skeleton {
-    background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.4s infinite;
-    border-radius: 4px;
-    height: 14px;
-  }
-  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  .send-btn { background:var(--accent); border:none; border-radius:7px; width:36px; height:36px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; flex-shrink:0; }
+  .send-btn:hover { background: var(--accent2); }
+  .send-btn:disabled { background: var(--border); cursor:not-allowed; }
+  .send-btn svg { fill: white; width:13px; height:13px; }
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .skeleton { background: linear-gradient(90deg,var(--bg3) 25%,var(--bg2) 50%,var(--bg3) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:4px; height:12px; }
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 </style>
-
-<style>
-.topbar{background:#fff;}
-.topbar-logo{font-weight:600;letter-spacing:.05em;}
-.topbar-logo span{color:#6f6256;}
-.kpi,.chart-wrap,.mention-card,.chat-panel,.sidebar{
-box-shadow:0 4px 20px rgba(0,0,0,.04);
-}
-.kpi-value,.chat-title{font-weight:600;}
-.send-btn{
-background:#3a2b22;
-}
-.send-btn svg{fill:#fff;}
-.send-btn:hover{
-background:#5b4335;
-}
-.chip:hover,.chat-input:focus{
-border-color:#3a2b22;
-}
-.badge{
-font-weight:600;
-}
-</style>
-
-
-<style>
-.chat-bubble.assistant{
-    background:#f8f6f3 !important;
-    color:#1b1b1b !important;
-    border:1px solid #d8d0c7 !important;
-}
-.chat-bubble.assistant .role-tag{
-    color:#5b4335 !important;
-}
-.chat-bubble.user{
-    background:#3a2b22 !important;
-    color:#ffffff !important;
-}
-.chat-messages{
-    background:#ffffff !important;
-}
-</style>
-
 </head>
 <body>
 <div class="shell">
 
   <!-- TOPBAR -->
   <header class="topbar">
-    <div class="topbar-logo">Natura Bissé <span>Intelligence</span></div>
+    <div class="topbar-logo">Natura Bissé <em>Intelligence</em></div>
     <div class="topbar-sep"></div>
-    <div class="topbar-subtitle">Brand Monitor · Social Listening</div>
+    <div class="topbar-sub">Brand Monitor · Social Listening</div>
     <div class="topbar-right">
-      <div class="pill live" id="live-pill">En vivo</div>
+      <div class="pill live">En vivo</div>
       <div class="pill" id="last-update">—</div>
     </div>
   </header>
@@ -452,85 +217,110 @@ font-weight:600;
   <aside class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Fuentes</div>
-      <div id="sources-list">
-        <div class="skeleton" style="margin-bottom:8px"></div>
-        <div class="skeleton" style="margin-bottom:8px"></div>
-        <div class="skeleton" style="margin-bottom:8px"></div>
-        <div class="skeleton"></div>
-      </div>
+      <div id="sources-list"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Filtrar año</div>
+      <div id="month-filter" style="display:flex;flex-direction:column;gap:3px;"></div>
     </div>
   </aside>
 
   <!-- MAIN -->
   <main class="main">
-    <!-- KPIs -->
+
+    <!-- KPIs principales -->
     <div class="kpi-row">
       <div class="kpi">
         <div class="kpi-label">Total menciones</div>
         <div class="kpi-value" id="kpi-total">—</div>
-        <div class="kpi-sub">últimos 2 meses</div>
+        <div class="kpi-sub">este año</div>
       </div>
       <div class="kpi">
-        <div class="kpi-label">Esta semana</div>
-        <div class="kpi-value" id="kpi-week">—</div>
-        <div class="kpi-sub">nuevas menciones</div>
+        <div class="kpi-label">Sentiment Score</div>
+        <div class="kpi-value pos" id="kpi-sentiment">—</div>
+        <div class="kpi-sub" id="kpi-sentiment-sub">% menciones positivas</div>
+        <div class="kpi-bar"><div class="kpi-bar-fill" id="kpi-sentiment-bar" style="background:var(--pos);width:0%"></div></div>
       </div>
       <div class="kpi">
-        <div class="kpi-label">Mayor engagement</div>
-        <div class="kpi-value" id="kpi-top-source">—</div>
-        <div class="kpi-sub" id="kpi-top-source-sub">fuente principal</div>
+        <div class="kpi-label">Mention Velocity</div>
+        <div class="kpi-value" id="kpi-velocity">—</div>
+        <div class="kpi-sub" id="kpi-velocity-sub">vs semana anterior</div>
+        <div class="kpi-bar"><div class="kpi-bar-fill" id="kpi-velocity-bar" style="background:var(--accent2);width:50%"></div></div>
       </div>
       <div class="kpi">
-        <div class="kpi-label">Top interacción</div>
-        <div class="kpi-value" id="kpi-top-eng">—</div>
-        <div class="kpi-sub">likes + plays</div>
+        <div class="kpi-label">Avg. Engagement</div>
+        <div class="kpi-value" id="kpi-engagement">—</div>
+        <div class="kpi-sub">likes + plays promedio</div>
       </div>
     </div>
 
-    <!-- Bar chart -->
+    <!-- Sentiment breakdown -->
+    <div class="sentiment-row">
+      <div class="sent-card">
+        <div class="sent-icon">😊</div>
+        <div style="flex:1">
+          <div class="sent-label">Positivo</div>
+          <div class="sent-val pos" id="sent-pos">—</div>
+        </div>
+        <div style="flex:1">
+          <div class="sent-bar"><div class="sent-bar-fill" id="sent-pos-bar" style="background:var(--pos);width:0%"></div></div>
+        </div>
+      </div>
+      <div class="sent-card">
+        <div class="sent-icon">😐</div>
+        <div style="flex:1">
+          <div class="sent-label">Neutro</div>
+          <div class="sent-val neu" id="sent-neu">—</div>
+        </div>
+        <div style="flex:1">
+          <div class="sent-bar"><div class="sent-bar-fill" id="sent-neu-bar" style="background:var(--muted);width:0%"></div></div>
+        </div>
+      </div>
+      <div class="sent-card">
+        <div class="sent-icon">😟</div>
+        <div style="flex:1">
+          <div class="sent-label">Negativo</div>
+          <div class="sent-val neg" id="sent-neg">—</div>
+        </div>
+        <div style="flex:1">
+          <div class="sent-bar"><div class="sent-bar-fill" id="sent-neg-bar" style="background:var(--neg);width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Evolución mensual -->
     <div class="chart-wrap">
-      <div class="section-title">Evolución semanal</div>
-      <div class="bar-chart" id="bar-chart">
-        <div class="bar-col"><div class="skeleton" style="height:100%;width:100%"></div></div>
-        <div class="bar-col"><div class="skeleton" style="height:100%;width:100%"></div></div>
-        <div class="bar-col"><div class="skeleton" style="height:100%;width:100%"></div></div>
-        <div class="bar-col"><div class="skeleton" style="height:100%;width:100%"></div></div>
-      </div>
+      <div class="section-title">Evolución mensual</div>
+      <div class="bar-chart" id="bar-chart"></div>
     </div>
 
-    <!-- Feed -->
-    <div class="section-title">Menciones recientes</div>
-    <div class="feed" id="feed">
-      <div class="mention-card"><div class="skeleton"></div></div>
-      <div class="mention-card"><div class="skeleton"></div></div>
-      <div class="mention-card"><div class="skeleton"></div></div>
-    </div>
+    <!-- Feed por meses -->
+    <div id="feed"></div>
+
   </main>
 
   <!-- CHAT -->
   <aside class="chat-panel">
     <div class="chat-header">
       <div class="chat-title">Asistente de Marca</div>
-      <div class="chat-subtitle">Pregunta sobre menciones, tendencias o influencers</div>
+      <div class="chat-subtitle">Pregunta sobre menciones, tendencias o sentimiento</div>
     </div>
     <div class="chat-messages" id="chat-messages">
       <div class="chat-bubble assistant">
         <span class="role-tag">Asistente</span>
-        Hola — soy tu asistente de inteligencia de marca para Natura Bissé. Puedo analizar menciones, identificar tendencias y responderte preguntas sobre los datos recientes.
+        Hola — soy tu asistente de inteligencia de marca para Natura Bissé. Puedo analizar menciones, sentimiento e identificar tendencias.
       </div>
     </div>
     <div class="chat-suggestions">
-      <button class="chip" onclick="sendSuggestion(this)">¿Qué fuente tiene más menciones?</button>
-      <button class="chip" onclick="sendSuggestion(this)">Top influencers esta semana</button>
+      <button class="chip" onclick="sendSuggestion(this)">¿Cuál es el sentimiento general?</button>
+      <button class="chip" onclick="sendSuggestion(this)">Top menciones positivas</button>
       <button class="chip" onclick="sendSuggestion(this)">Menciones negativas recientes</button>
       <button class="chip" onclick="sendSuggestion(this)">Resumen de TikTok</button>
     </div>
     <div class="chat-input-row">
-      <textarea class="chat-input" id="chat-input" placeholder="Pregunta algo sobre las menciones…" rows="1"></textarea>
+      <textarea class="chat-input" id="chat-input" placeholder="Pregunta algo sobre las menciones…"></textarea>
       <button class="send-btn" id="send-btn" onclick="sendMessage()">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
       </button>
     </div>
   </aside>
@@ -538,108 +328,214 @@ font-weight:600;
 </div>
 
 <script>
-const SOURCE_COLORS = {
-  'Instagram':   '#e1306c',
-  'TikTok':      '#69c9d0',
-  'Google News': '#4285f4',
-  'Reddit':      '#ff4500',
-  'Medium':      '#00ab6c',
-  'RSS':         '#f26522',
-};
+const SOURCE_COLORS = { Instagram:'#e1306c', TikTok:'#010101', 'Google News':'#4285f4', Reddit:'#ff4500', Medium:'#00ab6c', RSS:'#f26522' };
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
+// ── Sentiment calculator ───────────────────────────────────────────────────
+const POS_WORDS = ['excelente','increíble','increible','perfecto','love','amazing','best','beautiful','gorgeous','luxurious','luminoso','radiante','hidrat','suave','eficaz','recommend','favorito','fascinante','maravillo','encanta','genial','buenísimo','buenisimo','luxury','premium','exclusive','worth','fantastic','wonderful'];
+const NEG_WORDS = ['malo','pésimo','pesimo','horrible','decepcionante','caro','overpriced','disappointed','waste','terrible','awful','bad','worst','no funciona','no vale','estafa','fake','disappointed'];
+
+function calcSentimiento(texto) {
+  const t = (texto || '').toLowerCase();
+  let pos = 0, neg = 0;
+  POS_WORDS.forEach(w => { if (t.includes(w)) pos++; });
+  NEG_WORDS.forEach(w => { if (t.includes(w)) neg++; });
+  if (pos > neg) return 'positivo';
+  if (neg > pos) return 'negativo';
+  return 'neutro';
+}
+
+// ── Load stats ────────────────────────────────────────────────────────────
+let allData = [];
 let chatHistory = [];
-let statsData = null;
 
-// ── Load stats ────────────────────────────────────────────────────────────────
 async function loadStats() {
   try {
     const res = await fetch('/api/stats');
     const data = await res.json();
-    statsData = data;
-    renderStats(data);
-  } catch (e) {
-    console.error('Error cargando stats:', e);
-  }
+
+    // Fetch ALL mentions for year view
+    const res2 = await fetch('/api/all');
+    const allJson = await res2.json();
+    allData = (allJson.data || []).map(m => ({
+      ...m,
+      sentimiento: m.sentimiento || calcSentimiento((m.titulo || '') + ' ' + (m.snippet || ''))
+    }));
+
+    renderDashboard(data, allData);
+    document.getElementById('last-update').textContent = 'Act. ' + new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  } catch(e) { console.error(e); }
 }
 
-function renderStats(data) {
-  // KPIs
-  document.getElementById('kpi-total').textContent = data.total;
+function renderDashboard(stats, all) {
+  const total = all.length;
+  document.getElementById('kpi-total').textContent = total;
 
-  const thisWeek = data.by_week?.find(w => w.label === 'Esta semana');
-  document.getElementById('kpi-week').textContent = thisWeek?.total ?? 0;
+  // Sentiment
+  const pos = all.filter(m => m.sentimiento === 'positivo').length;
+  const neg = all.filter(m => m.sentimiento === 'negativo').length;
+  const neu = all.filter(m => m.sentimiento === 'neutro').length;
+  const pct = total ? Math.round(pos / total * 100) : 0;
 
-  const topSrc = Object.entries(data.by_source || {}).sort((a,b)=>b[1]-a[1])[0];
-  if (topSrc) {
-    document.getElementById('kpi-top-source').textContent = topSrc[1];
-    document.getElementById('kpi-top-source-sub').textContent = topSrc[0];
-  }
+  document.getElementById('kpi-sentiment').textContent = pct + '%';
+  document.getElementById('kpi-sentiment-bar').style.width = pct + '%';
+  document.getElementById('sent-pos').textContent = pos;
+  document.getElementById('sent-neg').textContent = neg;
+  document.getElementById('sent-neu').textContent = neu;
+  document.getElementById('sent-pos-bar').style.width = (total ? pos/total*100 : 0) + '%';
+  document.getElementById('sent-neg-bar').style.width = (total ? neg/total*100 : 0) + '%';
+  document.getElementById('sent-neu-bar').style.width = (total ? neu/total*100 : 0) + '%';
 
-  const topEng = data.top_engagement?.[0];
-  if (topEng) {
-    document.getElementById('kpi-top-eng').textContent =
-      ((topEng.likes || 0) + (topEng.plays || 0)).toLocaleString('es-ES');
-  }
+  // Velocity
+  const thisWeek = (stats.by_week || []).find(w => w.label === 'Esta semana')?.total || 0;
+  const lastWeek = (stats.by_week || []).find(w => w.label === 'Hace 1s')?.total || 0;
+  const velDiff = thisWeek - lastWeek;
+  const velEl = document.getElementById('kpi-velocity');
+  velEl.textContent = (velDiff >= 0 ? '+' : '') + velDiff;
+  velEl.className = 'kpi-value ' + (velDiff >= 0 ? 'pos' : 'neg');
+  document.getElementById('kpi-velocity-sub').textContent = `${thisWeek} esta semana vs ${lastWeek} anterior`;
 
-  // Last update
-  document.getElementById('last-update').textContent =
-    'Act. ' + new Date().toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+  // Engagement
+  const withEng = all.filter(m => m.likes != null || m.plays != null);
+  const avgEng = withEng.length
+    ? Math.round(withEng.reduce((s,m) => s + (m.likes||0) + (m.plays||0), 0) / withEng.length)
+    : 0;
+  document.getElementById('kpi-engagement').textContent = avgEng.toLocaleString('es-ES');
 
-  // Sidebar sources
-  const list = document.getElementById('sources-list');
-  list.innerHTML = '';
-  for (const [src, count] of Object.entries(data.by_source || {}).sort((a,b)=>b[1]-a[1])) {
-    const color = SOURCE_COLORS[src] || '#888';
-    list.innerHTML += `
-      <div class="source-item">
-        <div class="source-name">
-          <div class="source-dot" style="background:${color}"></div>
-          ${src}
-        </div>
-        <div class="source-count">${count}</div>
-      </div>`;
-  }
+  // Sources sidebar
+  const by_source = {};
+  all.forEach(m => { by_source[m.fuente] = (by_source[m.fuente]||0)+1; });
+  const srcEl = document.getElementById('sources-list');
+  srcEl.innerHTML = Object.entries(by_source).sort((a,b)=>b[1]-a[1]).map(([f,n]) => `
+    <div class="source-item" onclick="filterSource('${f}')">
+      <div class="source-name">
+        <div class="source-dot" style="background:${SOURCE_COLORS[f]||'#888'}"></div>${f}
+      </div>
+      <div class="source-count">${n}</div>
+    </div>`).join('');
 
-  // Bar chart
-  const weeks = data.by_week || [];
-  const maxVal = Math.max(...weeks.map(w => w.total), 1);
-  const chart = document.getElementById('bar-chart');
-  chart.innerHTML = weeks.map(w => `
-    <div class="bar-col">
-      <div class="bar-val">${w.total}</div>
-      <div class="bar" style="height:${Math.max(4, (w.total / maxVal) * 68)}px" title="${w.label}: ${w.total}"></div>
-      <div class="bar-label">${w.label}</div>
-    </div>
-  `).join('');
+  // Group by month
+  const byMonth = {};
+  all.forEach(m => {
+    const d = new Date(m.fecha);
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    if (!byMonth[key]) byMonth[key] = [];
+    byMonth[key].push(m);
+  });
 
-  // Feed
+  // Month filter sidebar
+  const mfEl = document.getElementById('month-filter');
+  mfEl.innerHTML = Object.keys(byMonth).sort().reverse().map(k => {
+    const [y,mo] = k.split('-');
+    return `<div class="source-item" onclick="scrollToMonth('${k}')">
+      <div class="source-name" style="color:var(--muted)">${MESES[parseInt(mo)-1]} ${y}</div>
+      <div class="source-count">${byMonth[k].length}</div>
+    </div>`;
+  }).join('');
+
+  // Bar chart (monthly)
+  const sortedMonths = Object.keys(byMonth).sort();
+  const maxVal = Math.max(...sortedMonths.map(k => byMonth[k].length), 1);
+  document.getElementById('bar-chart').innerHTML = sortedMonths.map(k => {
+    const [y,mo] = k.split('-');
+    const n = byMonth[k].length;
+    return `<div class="bar-col">
+      <div class="bar-val">${n}</div>
+      <div class="bar" style="height:${Math.max(3,(n/maxVal)*60)}px" title="${MESES[parseInt(mo)-1]}: ${n}"></div>
+      <div class="bar-label">${MESES[parseInt(mo)-1].slice(0,3)}</div>
+    </div>`;
+  }).join('');
+
+  // Feed by month
   const feed = document.getElementById('feed');
   feed.innerHTML = '';
-  for (const m of (data.recent || [])) {
-    const color = SOURCE_COLORS[m.fuente] || '#888';
-    const date = m.fecha ? new Date(m.fecha).toLocaleDateString('es-ES', {day:'2-digit', month:'short'}) : '';
-    const stats = [
-      m.likes    != null ? `❤️ ${m.likes.toLocaleString('es-ES')}` : null,
-      m.plays    != null ? `▶️ ${m.plays.toLocaleString('es-ES')}` : null,
-      m.comentarios != null ? `💬 ${m.comentarios}` : null,
-      m.score    != null ? `⬆️ ${m.score}` : null,
-    ].filter(Boolean).join(' · ');
+  Object.keys(byMonth).sort().reverse().forEach(k => {
+    const [y,mo] = k.split('-');
+    const items = byMonth[k].sort((a,b) => new Date(b.fecha)-new Date(a.fecha));
+    const mPos = items.filter(m=>m.sentimiento==='positivo').length;
+    const mNeg = items.filter(m=>m.sentimiento==='negativo').length;
+    const mNeu = items.filter(m=>m.sentimiento==='neutro').length;
 
-    feed.innerHTML += `
-      <div class="mention-card">
-        <div class="mention-header">
-          <span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${m.fuente}</span>
-          <span class="mention-date">${date}</span>
-          ${m.url ? `<a class="mention-link" href="${m.url}" target="_blank">↗ ver</a>` : ''}
+    const group = document.createElement('div');
+    group.className = 'month-group';
+    group.id = 'month-' + k;
+    group.innerHTML = `
+      <div class="month-header">
+        <div class="month-name">${MESES[parseInt(mo)-1]} ${y}</div>
+        <div class="month-count">${items.length} menciones</div>
+        <div class="month-sentiment">
+          ${mPos ? `<span class="mini-badge pos">😊 ${mPos}</span>` : ''}
+          ${mNeg ? `<span class="mini-badge neg">😟 ${mNeg}</span>` : ''}
+          ${mNeu ? `<span class="mini-badge neu">😐 ${mNeu}</span>` : ''}
         </div>
-        <div class="mention-title">${m.titulo || ''}</div>
-        ${m.snippet ? `<div class="mention-snippet">${m.snippet.slice(0, 140)}…</div>` : ''}
-        ${stats ? `<div class="mention-stats">${stats}</div>` : ''}
-      </div>`;
-  }
+      </div>
+      ${items.map(m => mentionCard(m)).join('')}`;
+    feed.appendChild(group);
+  });
 }
 
-// ── Chat ──────────────────────────────────────────────────────────────────────
+function mentionCard(m) {
+  const color = SOURCE_COLORS[m.fuente] || '#888';
+  const date = m.fecha ? new Date(m.fecha).toLocaleDateString('es-ES',{day:'2-digit',month:'short'}) : '';
+  const stats = [
+    m.likes != null ? `❤️ ${m.likes}` : null,
+    m.plays != null ? `▶️ ${m.plays.toLocaleString('es-ES')}` : null,
+    m.comentarios != null ? `💬 ${m.comentarios}` : null,
+    m.score != null ? `⬆️ ${m.score}` : null,
+  ].filter(Boolean).join(' · ');
+  const sent = m.sentimiento || 'neutro';
+  const sentLabel = { positivo:'😊 Positivo', negativo:'😟 Negativo', neutro:'😐 Neutro' }[sent];
+
+  return `<div class="mention-card">
+    <div class="mention-header">
+      <span class="badge" style="background:${color}18;color:${color};border:1px solid ${color}33">${m.fuente}</span>
+      <span class="sentiment-badge ${sent}">${sentLabel}</span>
+      <span class="mention-date">${date}</span>
+      ${m.url ? `<a class="mention-link" href="${m.url}" target="_blank">↗ ver</a>` : ''}
+    </div>
+    <div class="mention-title">${m.titulo || ''}</div>
+    ${m.snippet ? `<div class="mention-snippet">${m.snippet.slice(0,140)}…</div>` : ''}
+    ${stats ? `<div class="mention-stats">${stats}</div>` : ''}
+  </div>`;
+}
+
+function filterSource(src) {
+  document.querySelectorAll('.source-item').forEach(el => el.classList.remove('active'));
+  event.target.closest('.source-item').classList.add('active');
+  const filtered = src === 'all' ? allData : allData.filter(m => m.fuente === src);
+  // Re-render only feed with filtered data
+  renderFeedOnly(filtered);
+}
+
+function renderFeedOnly(data) {
+  const byMonth = {};
+  data.forEach(m => {
+    const d = new Date(m.fecha);
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    if (!byMonth[key]) byMonth[key] = [];
+    byMonth[key].push(m);
+  });
+  const feed = document.getElementById('feed');
+  feed.innerHTML = '';
+  Object.keys(byMonth).sort().reverse().forEach(k => {
+    const [y,mo] = k.split('-');
+    const items = byMonth[k].sort((a,b) => new Date(b.fecha)-new Date(a.fecha));
+    const group = document.createElement('div');
+    group.className = 'month-group';
+    group.id = 'month-' + k;
+    group.innerHTML = `<div class="month-header">
+      <div class="month-name">${MESES[parseInt(mo)-1]} ${y}</div>
+      <div class="month-count">${items.length} menciones</div>
+    </div>${items.map(m => mentionCard(m)).join('')}`;
+    feed.appendChild(group);
+  });
+}
+
+function scrollToMonth(k) {
+  document.getElementById('month-' + k)?.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ── Chat ──────────────────────────────────────────────────────────────────
 function sendSuggestion(btn) {
   document.getElementById('chat-input').value = btn.textContent;
   sendMessage();
@@ -649,30 +545,25 @@ async function sendMessage() {
   const input = document.getElementById('chat-input');
   const msg = input.value.trim();
   if (!msg) return;
-
   input.value = '';
   appendBubble('user', msg);
-  chatHistory.push({ role: 'user', content: msg });
-
-  const thinkingId = appendThinking();
+  chatHistory.push({ role:'user', content:msg });
+  const tid = appendThinking();
   document.getElementById('send-btn').disabled = true;
-
   try {
     const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: msg, history: chatHistory.slice(-10) }),
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ message:msg, history:chatHistory.slice(-10) })
     });
     const data = await res.json();
-    removeThinking(thinkingId);
+    removeThinking(tid);
     const reply = data.reply || data.error || 'Sin respuesta';
     appendBubble('assistant', reply);
-    chatHistory.push({ role: 'assistant', content: reply });
-  } catch (e) {
-    removeThinking(thinkingId);
+    chatHistory.push({ role:'assistant', content:reply });
+  } catch(e) {
+    removeThinking(tid);
     appendBubble('assistant', 'Error al conectar con el servidor.');
   }
-
   document.getElementById('send-btn').disabled = false;
 }
 
@@ -680,43 +571,31 @@ function appendBubble(role, content) {
   const el = document.createElement('div');
   el.className = `chat-bubble ${role}`;
   if (role === 'assistant') {
-    el.innerHTML = `<span class="role-tag">Asistente</span>${escapeHtml(content).replace(/\n/g, '<br>')}`;
-  } else {
-    el.textContent = content;
-  }
+    el.innerHTML = `<span class="role-tag">Asistente</span>${escapeHtml(content).replace(/\n/g,'<br>')}`;
+  } else { el.textContent = content; }
   const msgs = document.getElementById('chat-messages');
   msgs.appendChild(el);
   msgs.scrollTop = msgs.scrollHeight;
-  return el;
 }
 
 function appendThinking() {
-  const id = 'thinking-' + Date.now();
+  const id = 'th-' + Date.now();
   const el = document.createElement('div');
-  el.id = id;
-  el.className = 'chat-bubble thinking';
-  el.innerHTML = `<span class="typing-dots"><span></span><span></span><span></span></span> Analizando menciones…`;
+  el.id = id; el.className = 'chat-bubble thinking';
+  el.innerHTML = `<span class="typing-dots"><span></span><span></span><span></span></span> Analizando…`;
   document.getElementById('chat-messages').appendChild(el);
   document.getElementById('chat-messages').scrollTop = 99999;
   return id;
 }
+function removeThinking(id) { document.getElementById(id)?.remove(); }
+function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function removeThinking(id) {
-  document.getElementById(id)?.remove();
-}
-
-function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// Enter to send
 document.getElementById('chat-input').addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
 
-// ── Init ──────────────────────────────────────────────────────────────────────
 loadStats();
-setInterval(loadStats, 5 * 60 * 1000); // refresh every 5 min
+setInterval(loadStats, 5 * 60 * 1000);
 </script>
 </body>
 </html>
