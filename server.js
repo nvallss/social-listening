@@ -124,24 +124,27 @@ ${context}`;
       const result = await response.json();
       reply = result.message?.content || result.error || 'Sin respuesta';
     } else {
-      // OpenRouter fallback
+      // OpenRouter fallback — system prompt goes inside messages array
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': 'https://natura-bisse-dashboard.onrender.com',
-          'X-Title': 'Natura Bissé Brand Intelligence',
+          'X-Title': 'Natura Bisse Brand Intelligence',
         },
         body: JSON.stringify({
           model: 'anthropic/claude-3.5-haiku',
-          messages,
-          system: systemPrompt,
           max_tokens: 1000,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            ...messages
+          ],
         }),
       });
       const result = await response.json();
-      reply = result.choices?.[0]?.message?.content || 'Sin respuesta';
+      console.log('OpenRouter response:', JSON.stringify(result).slice(0, 300));
+      reply = result.choices?.[0]?.message?.content || result.error?.message || JSON.stringify(result);
     }
 
     res.json({ reply });
