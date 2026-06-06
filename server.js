@@ -134,7 +134,7 @@ ${context}`;
           'X-Title': 'Natura Bisse Brand Intelligence',
         },
         body: JSON.stringify({
-          model: 'nousresearch/hermes-3-llama-3.1-405b:free',
+          model: 'meta-llama/llama-3.2-3b-instruct:free',
           max_tokens: 1000,
           messages: [
             { role: 'system', content: systemPrompt },
