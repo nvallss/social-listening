@@ -20,7 +20,6 @@ const supabase = createClient(
 );
 
 // ── GET /api/stats ────────────────────────────────────────────────────────────
-// Returns: total, by_source, by_week, top_engagement
 app.get('/api/stats', async (req, res) => {
   try {
     const { data, error } = await supabase
@@ -30,13 +29,11 @@ app.get('/api/stats', async (req, res) => {
 
     if (error) return res.status(500).json({ error: error.message });
 
-    // By source
     const by_source = {};
     for (const m of data) {
       by_source[m.fuente] = (by_source[m.fuente] || 0) + 1;
     }
 
-    // By week (last 8 weeks)
     const weeks = {};
     const now = new Date();
     for (const m of data) {
@@ -52,7 +49,6 @@ app.get('/api/stats', async (req, res) => {
       .reverse()
       .map((w, i, arr) => ({ ...w, label: i === arr.length - 1 ? 'Esta semana' : `Hace ${parseInt(w.label.slice(2))}s` }));
 
-    // Top engagement (Instagram + TikTok by likes/plays)
     const top_engagement = data
       .filter(m => m.likes !== null || m.plays !== null)
       .map(m => ({
@@ -67,29 +63,20 @@ app.get('/api/stats', async (req, res) => {
       .sort((a, b) => b.engagement - a.engagement)
       .slice(0, 5);
 
-    // Recent mentions
     const recent = data.slice(0, 20);
 
-    res.json({
-      total: data.length,
-      by_source,
-      by_week,
-      top_engagement,
-      recent,
-    });
+    res.json({ total: data.length, by_source, by_week, top_engagement, recent });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 // ── POST /api/chat ────────────────────────────────────────────────────────────
-// Body: { message: string, history: [{role, content}] }
 app.post('/api/chat', async (req, res) => {
   const { message, history = [] } = req.body;
   if (!message) return res.status(400).json({ error: 'message required' });
 
   try {
-    // Fetch last 200 mentions as context
     const { data: menciones, error } = await supabase
       .from('menciones')
       .select('fuente, titulo, url, snippet, fecha, likes, comentarios, plays, score')
@@ -99,7 +86,7 @@ app.post('/api/chat', async (req, res) => {
     if (error) return res.status(500).json({ error: error.message });
 
     const context = menciones.map(m =>
-      `[${m.fuente} | ${m.fecha?.slice(0, 10)}] ${m.titulo}${m.snippet ? ' – ' + m.snippet : ''}${m.likes ? ' | ❤️' + m.likes : ''}${m.plays ? ' | ▶️' + m.plays : ''}`
+      `[${m.fuente} | ${m.fecha?.slice(0, 10)}] ${m.titulo}${m.snippet ? ' – ' + m.snippet : ''}${m.likes ? ' | likes:' + m.likes : ''}${m.plays ? ' | plays:' + m.plays : ''}`
     ).join('\n');
 
     const systemPrompt = `Eres el Asistente de Inteligencia de Marca para Natura Bissé.
@@ -116,47 +103,47 @@ ${context}`;
       { role: 'user', content: message }
     ];
 
-    // Use Ollama (local via tunnel) if OPENAI_BASE_URL is set, otherwise fallback to OpenRouter
     const useOllama = !!process.env.OPENAI_BASE_URL;
-    const apiUrl = useOllama
-      ? `${process.env.OPENAI_BASE_URL}/chat/completions`
-      : 'https://openrouter.ai/api/v1/chat/completions';
+    let reply;
 
-    const model = useOllama ? 'llama3' : 'anthropic/claude-3.5-haiku';
-
-    const bodyPayload = useOllama
-      ? {
-          model,
+    if (useOllama) {
+      // Ollama native API: strip /v1 suffix, use /api/chat
+      const ollamaBase = process.env.OPENAI_BASE_URL.replace(/\/v1\/?$/, '');
+      const response = await fetch(`${ollamaBase}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'llama3',
           messages: [
             { role: 'system', content: systemPrompt },
             ...messages
           ],
           stream: false,
-        }
-      : {
-          model,
-          messages,
-          system: systemPrompt,
-          max_tokens: 1000,
-        };
-
-    const headers = useOllama
-      ? { 'Content-Type': 'application/json' }
-      : {
+        }),
+      });
+      const result = await response.json();
+      reply = result.message?.content || result.error || 'Sin respuesta';
+    } else {
+      // OpenRouter fallback
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
           'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': 'https://natura-bisse-dashboard.onrender.com',
           'X-Title': 'Natura Bissé Brand Intelligence',
-        };
+        },
+        body: JSON.stringify({
+          model: 'anthropic/claude-3.5-haiku',
+          messages,
+          system: systemPrompt,
+          max_tokens: 1000,
+        }),
+      });
+      const result = await response.json();
+      reply = result.choices?.[0]?.message?.content || 'Sin respuesta';
+    }
 
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(bodyPayload),
-    });
-
-    const result = await response.json();
-    const reply = result.choices?.[0]?.message?.content || 'Sin respuesta';
     res.json({ reply });
 
   } catch (err) {
@@ -169,4 +156,4 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => console.log(`🌿 Natura Bissé Dashboard → http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Natura Bisse Dashboard -> http://localhost:${PORT}`));
