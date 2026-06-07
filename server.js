@@ -159,7 +159,7 @@ ${context}`;
 // Returns all mentions for the current year (no limit)
 app.get('/api/all', async (req, res) => {
   try {
-    const startOfYear = new Date(new Date().getFullYear(), 0, 1).toISOString();
+    const startOfYear = new Date('2025-01-01').toISOString();
     const { data, error } = await supabase
       .from('menciones')
       .select('fuente, fecha, likes, comentarios, plays, score, titulo, url, snippet, sentimiento')
