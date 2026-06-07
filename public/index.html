@@ -5,26 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Natura Bissé · Brand Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:      #f7f5f2;
+    --bg:      #ffffff;
     --bg2:     #ffffff;
-    --bg3:     #f0ede8;
-    --border:  #e2ddd7;
-    --text:    #1a1a18;
-    --muted:   #8a8680;
-    --accent:  #8b6914;
-    --accent2: #c4a55a;
-    --accent3: #f0e8d5;
+    --bg3:     #f5f5f5;
+    --border:  #e8e8e8;
+    --text:    #1a1a1a;
+    --muted:   #888888;
+    --accent:  #1a1a1a;
+    --accent2: #555555;
+    --accent3: #f5f5f5;
     --pos:     #2d6a4f;
-    --pos-bg:  #d8f3dc;
+    --pos-bg:  #edf7f1;
     --neg:     #9b2226;
-    --neg-bg:  #fde8e8;
-    --neu:     #495057;
-    --neu-bg:  #e9ecef;
+    --neg-bg:  #fdf0f0;
+    --neu:     #555555;
+    --neu-bg:  #f0f0f0;
     --ig:      #e1306c;
-    --tt:      #010101;
+    --tt:      #1a1a1a;
     --gn:      #4285f4;
     --rd:      #ff4500;
     --md:      #00ab6c;
@@ -33,13 +33,13 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
     line-height: 1.6;
     min-height: 100vh;
   }
 
-  /* ── Layout ── */
   .shell {
     display: grid;
     grid-template-columns: 200px 1fr 340px;
@@ -48,163 +48,145 @@
     overflow: hidden;
   }
 
-  /* ── Topbar ── */
+  /* TOPBAR */
   .topbar {
     grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    padding: 0 28px;
+    padding: 0 32px;
     border-bottom: 1px solid var(--border);
     background: var(--bg2);
-    gap: 16px;
+    gap: 20px;
   }
   .topbar-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
     font-weight: 300;
-    letter-spacing: .15em;
+    letter-spacing: .25em;
+    text-transform: uppercase;
     color: var(--text);
   }
-  .topbar-logo em { font-style: italic; color: var(--accent); }
-  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
-  .topbar-sub { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
+  .topbar-logo span { font-weight: 200; }
+  .topbar-sep { width: 1px; height: 18px; background: var(--border); }
+  .topbar-sub { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
   .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-  .pill { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 3px 10px; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); background: var(--bg2); }
+  .pill { font-size: 8px; letter-spacing: .15em; text-transform: uppercase; padding: 3px 10px; border: 1px solid var(--border); border-radius: 0; color: var(--muted); }
   .pill.live { border-color: var(--pos); color: var(--pos); }
   .pill.live::before { content: '●'; margin-right: 5px; animation: blink 2s infinite; }
   @keyframes blink { 0%,100%{opacity:1}50%{opacity:.3} }
 
-  /* ── Sidebar ── */
-  .sidebar {
-    background: var(--bg2);
-    border-right: 1px solid var(--border);
-    padding: 24px 0;
-    overflow-y: auto;
-  }
-  .sidebar-section { padding: 0 16px; margin-bottom: 28px; }
-  .sidebar-label { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-  .source-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; border-radius: 5px; margin-bottom: 3px; cursor: pointer; transition: background .15s; }
-  .source-item:hover, .source-item.active { background: var(--accent3); }
-  .source-dot { width: 7px; height: 7px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
-  .source-name { display: flex; align-items: center; color: var(--text); font-size: 11px; }
-  .source-count { font-size: 10px; color: var(--muted); }
+  /* SIDEBAR */
+  .sidebar { background: var(--bg2); border-right: 1px solid var(--border); padding: 28px 0; overflow-y: auto; }
+  .sidebar-section { padding: 0 18px; margin-bottom: 28px; }
+  .sidebar-label { font-size: 8px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-weight: 500; }
+  .source-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; margin-bottom: 2px; cursor: pointer; transition: background .15s; }
+  .source-item:hover, .source-item.active { background: var(--bg3); }
+  .source-dot { width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+  .source-name { display: flex; align-items: center; color: var(--text); font-size: 10px; font-weight: 300; }
+  .source-count { font-size: 10px; color: var(--muted); font-weight: 400; }
 
-  /* ── Main ── */
-  .main { overflow-y: auto; padding: 24px 28px; background: var(--bg); }
+  /* MAIN */
+  .main { overflow-y: auto; padding: 28px 32px; background: var(--bg); }
 
-  /* ── KPI row ── */
-  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-  .kpi {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 18px;
-    position: relative;
-  }
-  .kpi-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  .kpi-value { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--text); line-height: 1; }
+  /* KPIs */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-bottom: 24px; border: 1px solid var(--border); }
+  .kpi { background: var(--bg2); padding: 20px 20px 16px; border-right: 1px solid var(--border); }
+  .kpi:last-child { border-right: none; }
+  .kpi-label { font-size: 8px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
+  .kpi-value { font-size: 36px; font-weight: 200; color: var(--text); line-height: 1; letter-spacing: -.02em; }
   .kpi-value.pos { color: var(--pos); }
   .kpi-value.neg { color: var(--neg); }
-  .kpi-sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
-  .kpi-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 10px; overflow: hidden; }
-  .kpi-bar-fill { height: 100%; border-radius: 2px; transition: width .8s; }
+  .kpi-sub { font-size: 9px; color: var(--muted); margin-top: 5px; font-weight: 300; }
+  .kpi-bar { height: 2px; background: var(--border); margin-top: 12px; overflow: hidden; }
+  .kpi-bar-fill { height: 100%; transition: width .8s; }
 
-  /* ── Sentiment gauge ── */
-  .sentiment-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 24px; }
-  .sent-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
-  .sent-icon { font-size: 18px; }
-  .sent-label { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
-  .sent-val { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; }
+  /* SENTIMENT ROW */
+  .sentiment-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .sent-card { background: var(--bg2); border: 1px solid var(--border); padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .sent-icon { font-size: 16px; }
+  .sent-label { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .sent-val { font-size: 24px; font-weight: 200; margin-top: 2px; }
   .sent-val.pos { color: var(--pos); }
   .sent-val.neg { color: var(--neg); }
   .sent-val.neu { color: var(--neu); }
-  .sent-bar { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .sent-bar-fill { height: 100%; border-radius: 2px; }
+  .sent-bar-wrap { flex: 1; height: 2px; background: var(--border); overflow: hidden; }
+  .sent-bar-fill { height: 100%; }
 
-  /* ── Chart ── */
-  .chart-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 24px; }
-  .section-title { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-  .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 72px; }
+  /* CHART */
+  .chart-wrap { background: var(--bg2); border: 1px solid var(--border); padding: 20px 22px; margin-bottom: 24px; }
+  .section-title { font-size: 8px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 500; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 68px; }
   .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 3px; height: 100%; justify-content: flex-end; }
-  .bar { width: 100%; background: linear-gradient(180deg, var(--accent2), var(--accent)); border-radius: 3px 3px 0 0; min-height: 2px; transition: height .6s cubic-bezier(.23,1,.32,1); }
-  .bar:hover { filter: brightness(1.1); }
-  .bar-label { font-size: 8px; color: var(--muted); white-space: nowrap; }
-  .bar-val { font-size: 9px; color: var(--accent); font-weight: 400; }
+  .bar { width: 100%; background: var(--text); border-radius: 0; min-height: 2px; transition: height .6s; }
+  .bar:hover { background: var(--muted); }
+  .bar-label { font-size: 8px; color: var(--muted); white-space: nowrap; font-weight: 300; }
+  .bar-val { font-size: 8px; color: var(--text); font-weight: 400; }
 
-  /* ── Month groups ── */
-  .month-group { margin-bottom: 28px; }
-  .month-header {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 0; margin-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }
-  .month-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; text-transform: capitalize; color: var(--text); letter-spacing: .05em; }
-  .month-count { font-size: 10px; color: var(--muted); }
-  .month-sentiment { margin-left: auto; display: flex; gap: 6px; }
-  .mini-badge { font-size: 9px; padding: 2px 7px; border-radius: 10px; }
+  /* FEED */
+  .month-group { margin-bottom: 32px; }
+  .month-header { display: flex; align-items: baseline; gap: 10px; padding: 8px 0; margin-bottom: 12px; border-bottom: 2px solid var(--text); }
+  .month-name { font-size: 13px; font-weight: 300; text-transform: uppercase; letter-spacing: .2em; color: var(--text); }
+  .month-count { font-size: 9px; color: var(--muted); letter-spacing: .1em; }
+  .month-sentiment { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+  .mini-badge { font-size: 8px; padding: 2px 8px; letter-spacing: .08em; font-weight: 400; }
   .mini-badge.pos { background: var(--pos-bg); color: var(--pos); }
   .mini-badge.neg { background: var(--neg-bg); color: var(--neg); }
   .mini-badge.neu { background: var(--neu-bg); color: var(--neu); }
 
-  /* ── Feed cards ── */
-  .mention-card {
-    background: var(--bg2); border: 1px solid var(--border); border-radius: 7px;
-    padding: 12px 14px; margin-bottom: 8px;
-    transition: border-color .15s, box-shadow .15s;
-  }
-  .mention-card:hover { border-color: var(--accent2); box-shadow: 0 2px 8px rgba(139,105,20,.08); }
-  .mention-header { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; flex-wrap: wrap; }
-  .badge { font-size: 9px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; font-weight: 400; white-space: nowrap; }
-  .sentiment-badge { font-size: 9px; padding: 2px 7px; border-radius: 10px; }
+  .mention-card { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid transparent; padding: 14px 16px; margin-bottom: 8px; transition: border-color .15s; }
+  .mention-card:hover { border-left-color: var(--text); }
+  .mention-card.positivo { border-left-color: var(--pos); }
+  .mention-card.negativo { border-left-color: var(--neg); }
+  .mention-header { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
+  .badge { font-size: 8px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; font-weight: 500; white-space: nowrap; }
+  .sentiment-badge { font-size: 8px; padding: 2px 8px; letter-spacing: .06em; font-weight: 400; }
   .sentiment-badge.positivo { background: var(--pos-bg); color: var(--pos); }
   .sentiment-badge.negativo { background: var(--neg-bg); color: var(--neg); }
   .sentiment-badge.neutro { background: var(--neu-bg); color: var(--neu); }
-  .mention-date { font-size: 10px; color: var(--muted); margin-left: auto; }
-  .mention-title { font-size: 12px; color: var(--text); line-height: 1.4; margin-bottom: 3px; font-weight: 400; }
-  .mention-snippet { font-size: 11px; color: var(--muted); line-height: 1.5; }
-  .mention-stats { display: flex; gap: 8px; margin-top: 6px; font-size: 10px; color: var(--muted); align-items: center; }
-  .mention-link { font-size: 10px; color: var(--accent); text-decoration: none; margin-left: auto; }
+  .mention-date { font-size: 9px; color: var(--muted); margin-left: auto; font-weight: 300; }
+  .mention-title { font-size: 11px; color: var(--text); line-height: 1.5; margin-bottom: 3px; font-weight: 400; }
+  .mention-snippet { font-size: 10px; color: var(--muted); line-height: 1.5; font-weight: 300; }
+  .mention-stats { display: flex; gap: 10px; margin-top: 7px; font-size: 9px; color: var(--muted); align-items: center; font-weight: 300; }
+  .mention-link { font-size: 9px; color: var(--text); text-decoration: none; margin-left: auto; letter-spacing: .08em; font-weight: 400; }
   .mention-link:hover { text-decoration: underline; }
 
-  /* ── Chat ── */
+  /* CHAT */
   .chat-panel { background: var(--bg2); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
-  .chat-header { padding: 14px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
-  .chat-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; color: var(--text); letter-spacing: .05em; }
-  .chat-subtitle { font-size: 10px; color: var(--muted); margin-top: 1px; }
-  .chat-messages { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
-  .chat-bubble { max-width: 94%; padding: 9px 12px; border-radius: 8px; line-height: 1.55; font-size: 11px; animation: fadeUp .2s ease; }
+  .chat-header { padding: 18px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .chat-title { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--text); }
+  .chat-subtitle { font-size: 9px; color: var(--muted); margin-top: 3px; font-weight: 300; letter-spacing: .05em; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .chat-bubble { max-width: 94%; padding: 10px 13px; line-height: 1.55; font-size: 11px; font-weight: 300; animation: fadeUp .2s ease; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
-  .chat-bubble.user { background: var(--accent3); border: 1px solid var(--border); align-self: flex-end; border-radius: 8px 8px 2px 8px; }
-  .chat-bubble.assistant { background: var(--bg2); border: 1px solid var(--border); align-self: flex-start; border-radius: 2px 8px 8px 8px; }
-  .chat-bubble.assistant .role-tag { font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; display: block; }
+  .chat-bubble.user { background: var(--text); color: #fff; align-self: flex-end; }
+  .chat-bubble.assistant { background: var(--bg3); border: 1px solid var(--border); align-self: flex-start; }
+  .chat-bubble.assistant .role-tag { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; display: block; font-weight: 500; }
   .chat-bubble.thinking { background: var(--bg3); border: 1px solid var(--border); align-self: flex-start; color: var(--muted); font-style: italic; }
   .typing-dots span { display:inline-block;width:3px;height:3px;background:var(--muted);border-radius:50%;margin-right:3px;animation:dot .8s infinite; }
   .typing-dots span:nth-child(2){animation-delay:.2s}
   .typing-dots span:nth-child(3){animation-delay:.4s}
   @keyframes dot{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
   .chat-suggestions { padding: 0 16px 10px; display: flex; flex-wrap: wrap; gap: 5px; }
-  .chip { font-size: 10px; padding: 4px 9px; border: 1px solid var(--border); border-radius: 14px; cursor: pointer; color: var(--muted); transition: all .15s; background: none; font-family: 'DM Mono', monospace; }
-  .chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent3); }
-  .chat-input-row { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 7px; flex-shrink: 0; }
-  .chat-input { flex:1; background:var(--bg3); border:1px solid var(--border); border-radius:7px; padding:8px 12px; color:var(--text); font-family:'DM Mono',monospace; font-size:11px; outline:none; resize:none; height:36px; line-height:1.4; transition:border-color .15s; }
-  .chat-input:focus { border-color: var(--accent2); }
+  .chip { font-size: 9px; padding: 4px 10px; border: 1px solid var(--border); cursor: pointer; color: var(--muted); transition: all .15s; background: none; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: .05em; border-radius: 0; }
+  .chip:hover { border-color: var(--text); color: var(--text); background: var(--bg3); }
+  .chat-input-row { padding: 14px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; flex-shrink: 0; }
+  .chat-input { flex:1; background:var(--bg3); border:1px solid var(--border); padding:9px 12px; color:var(--text); font-family:'Montserrat',sans-serif; font-size:11px; font-weight:300; outline:none; resize:none; height:38px; line-height:1.4; transition:border-color .15s; border-radius:0; }
+  .chat-input:focus { border-color: var(--text); }
   .chat-input::placeholder { color: var(--muted); }
-  .send-btn { background:var(--accent); border:none; border-radius:7px; width:36px; height:36px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; flex-shrink:0; }
-  .send-btn:hover { background: var(--accent2); }
+  .send-btn { background:var(--text); border:none; width:38px; height:38px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; flex-shrink:0; border-radius:0; }
+  .send-btn:hover { background: var(--muted); }
   .send-btn:disabled { background: var(--border); cursor:not-allowed; }
   .send-btn svg { fill: white; width:13px; height:13px; }
   ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  .skeleton { background: linear-gradient(90deg,var(--bg3) 25%,var(--bg2) 50%,var(--bg3) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:4px; height:12px; }
-  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  .empty-month { font-size: 10px; color: var(--muted); padding: 12px 0; font-style: italic; }
 </style>
 </head>
 <body>
 <div class="shell">
 
-  <!-- TOPBAR -->
   <header class="topbar">
-    <div class="topbar-logo">Natura Bissé <em>Intelligence</em></div>
+    <div class="topbar-logo">Natura Bissé <span>Intelligence</span></div>
     <div class="topbar-sep"></div>
     <div class="topbar-sub">Brand Monitor · Social Listening</div>
     <div class="topbar-right">
@@ -213,27 +195,23 @@
     </div>
   </header>
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Fuentes</div>
       <div id="sources-list"></div>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Filtrar año</div>
-      <div id="month-filter" style="display:flex;flex-direction:column;gap:3px;"></div>
+      <div class="sidebar-label">Navegar por mes</div>
+      <div id="month-filter"></div>
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
-
-    <!-- KPIs principales -->
     <div class="kpi-row">
       <div class="kpi">
         <div class="kpi-label">Total menciones</div>
         <div class="kpi-value" id="kpi-total">—</div>
-        <div class="kpi-sub">este año</div>
+        <div class="kpi-sub">desde enero 2025</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Sentiment Score</div>
@@ -245,7 +223,7 @@
         <div class="kpi-label">Mention Velocity</div>
         <div class="kpi-value" id="kpi-velocity">—</div>
         <div class="kpi-sub" id="kpi-velocity-sub">vs semana anterior</div>
-        <div class="kpi-bar"><div class="kpi-bar-fill" id="kpi-velocity-bar" style="background:var(--accent2);width:50%"></div></div>
+        <div class="kpi-bar"><div class="kpi-bar-fill" id="kpi-velocity-bar" style="background:var(--text);width:50%"></div></div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Avg. Engagement</div>
@@ -254,7 +232,6 @@
       </div>
     </div>
 
-    <!-- Sentiment breakdown -->
     <div class="sentiment-row">
       <div class="sent-card">
         <div class="sent-icon">😊</div>
@@ -262,9 +239,7 @@
           <div class="sent-label">Positivo</div>
           <div class="sent-val pos" id="sent-pos">—</div>
         </div>
-        <div style="flex:1">
-          <div class="sent-bar"><div class="sent-bar-fill" id="sent-pos-bar" style="background:var(--pos);width:0%"></div></div>
-        </div>
+        <div class="sent-bar-wrap"><div class="sent-bar-fill" id="sent-pos-bar" style="background:var(--pos);width:0%"></div></div>
       </div>
       <div class="sent-card">
         <div class="sent-icon">😐</div>
@@ -272,9 +247,7 @@
           <div class="sent-label">Neutro</div>
           <div class="sent-val neu" id="sent-neu">—</div>
         </div>
-        <div style="flex:1">
-          <div class="sent-bar"><div class="sent-bar-fill" id="sent-neu-bar" style="background:var(--muted);width:0%"></div></div>
-        </div>
+        <div class="sent-bar-wrap"><div class="sent-bar-fill" id="sent-neu-bar" style="background:var(--muted);width:0%"></div></div>
       </div>
       <div class="sent-card">
         <div class="sent-icon">😟</div>
@@ -282,24 +255,18 @@
           <div class="sent-label">Negativo</div>
           <div class="sent-val neg" id="sent-neg">—</div>
         </div>
-        <div style="flex:1">
-          <div class="sent-bar"><div class="sent-bar-fill" id="sent-neg-bar" style="background:var(--neg);width:0%"></div></div>
-        </div>
+        <div class="sent-bar-wrap"><div class="sent-bar-fill" id="sent-neg-bar" style="background:var(--neg);width:0%"></div></div>
       </div>
     </div>
 
-    <!-- Evolución mensual -->
     <div class="chart-wrap">
-      <div class="section-title">Evolución mensual</div>
+      <div class="section-title">Evolución mensual · 2025–2026</div>
       <div class="bar-chart" id="bar-chart"></div>
     </div>
 
-    <!-- Feed por meses -->
     <div id="feed"></div>
-
   </main>
 
-  <!-- CHAT -->
   <aside class="chat-panel">
     <div class="chat-header">
       <div class="chat-title">Asistente de Marca</div>
@@ -308,13 +275,13 @@
     <div class="chat-messages" id="chat-messages">
       <div class="chat-bubble assistant">
         <span class="role-tag">Asistente</span>
-        Hola — soy tu asistente de inteligencia de marca para Natura Bissé. Puedo analizar menciones, sentimiento e identificar tendencias.
+        Hola — soy tu asistente de inteligencia de marca para Natura Bissé. Puedo analizar menciones, sentimiento e identificar tendencias desde enero 2025.
       </div>
     </div>
     <div class="chat-suggestions">
       <button class="chip" onclick="sendSuggestion(this)">¿Cuál es el sentimiento general?</button>
       <button class="chip" onclick="sendSuggestion(this)">Top menciones positivas</button>
-      <button class="chip" onclick="sendSuggestion(this)">Menciones negativas recientes</button>
+      <button class="chip" onclick="sendSuggestion(this)">Menciones negativas</button>
       <button class="chip" onclick="sendSuggestion(this)">Resumen de TikTok</button>
     </div>
     <div class="chat-input-row">
@@ -326,14 +293,12 @@
   </aside>
 
 </div>
-
 <script>
-const SOURCE_COLORS = { Instagram:'#e1306c', TikTok:'#010101', 'Google News':'#4285f4', Reddit:'#ff4500', Medium:'#00ab6c', RSS:'#f26522' };
+const SOURCE_COLORS = { Instagram:'#e1306c', TikTok:'#1a1a1a', 'Google News':'#4285f4', Reddit:'#ff4500', Medium:'#00ab6c', RSS:'#888888' };
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
-// ── Sentiment calculator ───────────────────────────────────────────────────
-const POS_WORDS = ['excelente','increíble','increible','perfecto','love','amazing','best','beautiful','gorgeous','luxurious','luminoso','radiante','hidrat','suave','eficaz','recommend','favorito','fascinante','maravillo','encanta','genial','buenísimo','buenisimo','luxury','premium','exclusive','worth','fantastic','wonderful'];
-const NEG_WORDS = ['malo','pésimo','pesimo','horrible','decepcionante','caro','overpriced','disappointed','waste','terrible','awful','bad','worst','no funciona','no vale','estafa','fake','disappointed'];
+const POS_WORDS = ['excelente','increíble','increible','perfecto','love','amazing','best','beautiful','gorgeous','luxurious','luminoso','radiante','hidrat','suave','eficaz','recommend','favorito','fascinante','maravillo','encanta','genial','luxury','premium','exclusive','fantastic','wonderful','superb','glowing','radiant'];
+const NEG_WORDS = ['malo','pésimo','pesimo','horrible','decepcionante','caro','overpriced','disappointed','waste','terrible','awful','bad','worst','no funciona','no vale','estafa','fake','damaged','irritat','reaction','broke'];
 
 function calcSentimiento(texto) {
   const t = (texto || '').toLowerCase();
@@ -345,24 +310,21 @@ function calcSentimiento(texto) {
   return 'neutro';
 }
 
-// ── Load stats ────────────────────────────────────────────────────────────
 let allData = [];
 let chatHistory = [];
 
 async function loadStats() {
   try {
-    const res = await fetch('/api/stats');
-    const data = await res.json();
-
-    // Fetch ALL mentions for year view
-    const res2 = await fetch('/api/all');
-    const allJson = await res2.json();
+    const [r1, r2] = await Promise.all([fetch('/api/stats'), fetch('/api/all')]);
+    const stats = await r1.json();
+    const allJson = await r2.json();
     allData = (allJson.data || []).map(m => ({
       ...m,
-      sentimiento: m.sentimiento || calcSentimiento((m.titulo || '') + ' ' + (m.snippet || ''))
+      sentimiento: m.sentimiento && m.sentimiento !== 'neutro'
+        ? m.sentimiento
+        : calcSentimiento((m.titulo||'') + ' ' + (m.snippet||''))
     }));
-
-    renderDashboard(data, allData);
+    renderDashboard(stats, allData);
     document.getElementById('last-update').textContent = 'Act. ' + new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   } catch(e) { console.error(e); }
 }
@@ -371,7 +333,6 @@ function renderDashboard(stats, all) {
   const total = all.length;
   document.getElementById('kpi-total').textContent = total;
 
-  // Sentiment
   const pos = all.filter(m => m.sentimiento === 'positivo').length;
   const neg = all.filter(m => m.sentimiento === 'negativo').length;
   const neu = all.filter(m => m.sentimiento === 'neutro').length;
@@ -386,36 +347,42 @@ function renderDashboard(stats, all) {
   document.getElementById('sent-neg-bar').style.width = (total ? neg/total*100 : 0) + '%';
   document.getElementById('sent-neu-bar').style.width = (total ? neu/total*100 : 0) + '%';
 
-  // Velocity
-  const thisWeek = (stats.by_week || []).find(w => w.label === 'Esta semana')?.total || 0;
-  const lastWeek = (stats.by_week || []).find(w => w.label === 'Hace 1s')?.total || 0;
+  const thisWeek = (stats.by_week||[]).find(w=>w.label==='Esta semana')?.total||0;
+  const lastWeek = (stats.by_week||[]).find(w=>w.label==='Hace 1s')?.total||0;
   const velDiff = thisWeek - lastWeek;
   const velEl = document.getElementById('kpi-velocity');
   velEl.textContent = (velDiff >= 0 ? '+' : '') + velDiff;
   velEl.className = 'kpi-value ' + (velDiff >= 0 ? 'pos' : 'neg');
-  document.getElementById('kpi-velocity-sub').textContent = `${thisWeek} esta semana vs ${lastWeek} anterior`;
+  document.getElementById('kpi-velocity-sub').textContent = `${thisWeek} esta semana · ${lastWeek} anterior`;
 
-  // Engagement
   const withEng = all.filter(m => m.likes != null || m.plays != null);
-  const avgEng = withEng.length
-    ? Math.round(withEng.reduce((s,m) => s + (m.likes||0) + (m.plays||0), 0) / withEng.length)
-    : 0;
+  const avgEng = withEng.length ? Math.round(withEng.reduce((s,m)=>s+(m.likes||0)+(m.plays||0),0)/withEng.length) : 0;
   document.getElementById('kpi-engagement').textContent = avgEng.toLocaleString('es-ES');
 
-  // Sources sidebar
+  // Sources
   const by_source = {};
-  all.forEach(m => { by_source[m.fuente] = (by_source[m.fuente]||0)+1; });
-  const srcEl = document.getElementById('sources-list');
-  srcEl.innerHTML = Object.entries(by_source).sort((a,b)=>b[1]-a[1]).map(([f,n]) => `
-    <div class="source-item" onclick="filterSource('${f}')">
-      <div class="source-name">
-        <div class="source-dot" style="background:${SOURCE_COLORS[f]||'#888'}"></div>${f}
-      </div>
+  all.forEach(m => { by_source[m.fuente]=(by_source[m.fuente]||0)+1; });
+  document.getElementById('sources-list').innerHTML = Object.entries(by_source).sort((a,b)=>b[1]-a[1]).map(([f,n]) => `
+    <div class="source-item" onclick="filterSource('${f}',this)">
+      <div class="source-name"><div class="source-dot" style="background:${SOURCE_COLORS[f]||'#888'}"></div>${f}</div>
       <div class="source-count">${n}</div>
-    </div>`).join('');
+    </div>`).join('') + `<div class="source-item" onclick="filterSource('all',this)" style="margin-top:6px;border-top:1px solid var(--border);padding-top:8px">
+      <div class="source-name" style="color:var(--muted)">Todas las fuentes</div>
+    </div>`;
 
-  // Group by month
+  // Build all months from Jan 2025 to today
+  const now = new Date();
+  const allMonths = [];
+  for (let y = 2025; y <= now.getFullYear(); y++) {
+    const endM = y === now.getFullYear() ? now.getMonth() : 11;
+    for (let mo = (y === 2025 ? 0 : 0); mo <= endM; mo++) {
+      allMonths.push(`${y}-${String(mo+1).padStart(2,'0')}`);
+    }
+  }
+
+  // Group data by month
   const byMonth = {};
+  allMonths.forEach(k => { byMonth[k] = []; });
   all.forEach(m => {
     const d = new Date(m.fecha);
     const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
@@ -423,35 +390,38 @@ function renderDashboard(stats, all) {
     byMonth[key].push(m);
   });
 
-  // Month filter sidebar
-  const mfEl = document.getElementById('month-filter');
-  mfEl.innerHTML = Object.keys(byMonth).sort().reverse().map(k => {
+  // Month nav sidebar
+  document.getElementById('month-filter').innerHTML = allMonths.slice().reverse().map(k => {
     const [y,mo] = k.split('-');
+    const n = (byMonth[k]||[]).length;
     return `<div class="source-item" onclick="scrollToMonth('${k}')">
-      <div class="source-name" style="color:var(--muted)">${MESES[parseInt(mo)-1]} ${y}</div>
-      <div class="source-count">${byMonth[k].length}</div>
+      <div class="source-name" style="font-size:10px;color:${n>0?'var(--text)':'var(--muted)'}">${MESES[parseInt(mo)-1]} ${y}</div>
+      <div class="source-count">${n > 0 ? n : '—'}</div>
     </div>`;
   }).join('');
 
-  // Bar chart (monthly)
-  const sortedMonths = Object.keys(byMonth).sort();
-  const maxVal = Math.max(...sortedMonths.map(k => byMonth[k].length), 1);
-  document.getElementById('bar-chart').innerHTML = sortedMonths.map(k => {
+  // Bar chart
+  const maxVal = Math.max(...allMonths.map(k=>(byMonth[k]||[]).length), 1);
+  document.getElementById('bar-chart').innerHTML = allMonths.map(k => {
     const [y,mo] = k.split('-');
-    const n = byMonth[k].length;
+    const n = (byMonth[k]||[]).length;
     return `<div class="bar-col">
-      <div class="bar-val">${n}</div>
-      <div class="bar" style="height:${Math.max(3,(n/maxVal)*60)}px" title="${MESES[parseInt(mo)-1]}: ${n}"></div>
+      <div class="bar-val" style="color:${n>0?'var(--text)':'var(--border)'}">${n>0?n:''}</div>
+      <div class="bar" style="height:${n>0?Math.max(2,(n/maxVal)*58):2}px;background:${n>0?'var(--text)':'var(--border)'}"></div>
       <div class="bar-label">${MESES[parseInt(mo)-1].slice(0,3)}</div>
     </div>`;
   }).join('');
 
-  // Feed by month
+  // Feed
+  renderFeed(byMonth, allMonths);
+}
+
+function renderFeed(byMonth, months) {
   const feed = document.getElementById('feed');
   feed.innerHTML = '';
-  Object.keys(byMonth).sort().reverse().forEach(k => {
+  months.slice().reverse().forEach(k => {
     const [y,mo] = k.split('-');
-    const items = byMonth[k].sort((a,b) => new Date(b.fecha)-new Date(a.fecha));
+    const items = (byMonth[k]||[]).sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
     const mPos = items.filter(m=>m.sentimiento==='positivo').length;
     const mNeg = items.filter(m=>m.sentimiento==='negativo').length;
     const mNeu = items.filter(m=>m.sentimiento==='neutro').length;
@@ -469,7 +439,9 @@ function renderDashboard(stats, all) {
           ${mNeu ? `<span class="mini-badge neu">😐 ${mNeu}</span>` : ''}
         </div>
       </div>
-      ${items.map(m => mentionCard(m)).join('')}`;
+      ${items.length === 0
+        ? '<div class="empty-month">Sin menciones registradas este mes</div>'
+        : items.map(m => mentionCard(m)).join('')}`;
     feed.appendChild(group);
   });
 }
@@ -484,58 +456,46 @@ function mentionCard(m) {
     m.score != null ? `⬆️ ${m.score}` : null,
   ].filter(Boolean).join(' · ');
   const sent = m.sentimiento || 'neutro';
-  const sentLabel = { positivo:'😊 Positivo', negativo:'😟 Negativo', neutro:'😐 Neutro' }[sent];
-
-  return `<div class="mention-card">
+  const sentLabel = {positivo:'😊 Positivo', negativo:'😟 Negativo', neutro:'😐 Neutro'}[sent];
+  return `<div class="mention-card ${sent}">
     <div class="mention-header">
-      <span class="badge" style="background:${color}18;color:${color};border:1px solid ${color}33">${m.fuente}</span>
+      <span class="badge" style="background:${color}15;color:${color};border:1px solid ${color}30">${m.fuente}</span>
       <span class="sentiment-badge ${sent}">${sentLabel}</span>
       <span class="mention-date">${date}</span>
       ${m.url ? `<a class="mention-link" href="${m.url}" target="_blank">↗ ver</a>` : ''}
     </div>
-    <div class="mention-title">${m.titulo || ''}</div>
-    ${m.snippet ? `<div class="mention-snippet">${m.snippet.slice(0,140)}…</div>` : ''}
+    <div class="mention-title">${m.titulo||''}</div>
+    ${m.snippet ? `<div class="mention-snippet">${m.snippet.slice(0,150)}…</div>` : ''}
     ${stats ? `<div class="mention-stats">${stats}</div>` : ''}
   </div>`;
 }
 
-function filterSource(src) {
-  document.querySelectorAll('.source-item').forEach(el => el.classList.remove('active'));
-  event.target.closest('.source-item').classList.add('active');
-  const filtered = src === 'all' ? allData : allData.filter(m => m.fuente === src);
-  // Re-render only feed with filtered data
-  renderFeedOnly(filtered);
-}
-
-function renderFeedOnly(data) {
+function filterSource(src, el) {
+  document.querySelectorAll('#sources-list .source-item').forEach(i=>i.classList.remove('active'));
+  el?.classList.add('active');
+  const filtered = src === 'all' ? allData : allData.filter(m=>m.fuente===src);
   const byMonth = {};
-  data.forEach(m => {
-    const d = new Date(m.fecha);
-    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-    if (!byMonth[key]) byMonth[key] = [];
+  const now = new Date();
+  const allMonths = [];
+  for (let y=2025; y<=now.getFullYear(); y++) {
+    const endM = y===now.getFullYear()?now.getMonth():11;
+    for (let mo=0; mo<=endM; mo++) allMonths.push(`${y}-${String(mo+1).padStart(2,'0')}`);
+  }
+  allMonths.forEach(k=>{byMonth[k]=[];});
+  filtered.forEach(m=>{
+    const d=new Date(m.fecha);
+    const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    if(!byMonth[key])byMonth[key]=[];
     byMonth[key].push(m);
   });
-  const feed = document.getElementById('feed');
-  feed.innerHTML = '';
-  Object.keys(byMonth).sort().reverse().forEach(k => {
-    const [y,mo] = k.split('-');
-    const items = byMonth[k].sort((a,b) => new Date(b.fecha)-new Date(a.fecha));
-    const group = document.createElement('div');
-    group.className = 'month-group';
-    group.id = 'month-' + k;
-    group.innerHTML = `<div class="month-header">
-      <div class="month-name">${MESES[parseInt(mo)-1]} ${y}</div>
-      <div class="month-count">${items.length} menciones</div>
-    </div>${items.map(m => mentionCard(m)).join('')}`;
-    feed.appendChild(group);
-  });
+  renderFeed(byMonth, allMonths);
 }
 
 function scrollToMonth(k) {
-  document.getElementById('month-' + k)?.scrollIntoView({ behavior:'smooth', block:'start' });
+  document.getElementById('month-'+k)?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ── Chat ──────────────────────────────────────────────────────────────────
+// CHAT
 function sendSuggestion(btn) {
   document.getElementById('chat-input').value = btn.textContent;
   sendMessage();
@@ -547,22 +507,22 @@ async function sendMessage() {
   if (!msg) return;
   input.value = '';
   appendBubble('user', msg);
-  chatHistory.push({ role:'user', content:msg });
+  chatHistory.push({role:'user',content:msg});
   const tid = appendThinking();
   document.getElementById('send-btn').disabled = true;
   try {
     const res = await fetch('/api/chat', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ message:msg, history:chatHistory.slice(-10) })
+      body: JSON.stringify({message:msg, history:chatHistory.slice(-10)})
     });
     const data = await res.json();
     removeThinking(tid);
     const reply = data.reply || data.error || 'Sin respuesta';
     appendBubble('assistant', reply);
-    chatHistory.push({ role:'assistant', content:reply });
+    chatHistory.push({role:'assistant',content:reply});
   } catch(e) {
     removeThinking(tid);
-    appendBubble('assistant', 'Error al conectar con el servidor.');
+    appendBubble('assistant','Error al conectar con el servidor.');
   }
   document.getElementById('send-btn').disabled = false;
 }
@@ -570,7 +530,7 @@ async function sendMessage() {
 function appendBubble(role, content) {
   const el = document.createElement('div');
   el.className = `chat-bubble ${role}`;
-  if (role === 'assistant') {
+  if (role==='assistant') {
     el.innerHTML = `<span class="role-tag">Asistente</span>${escapeHtml(content).replace(/\n/g,'<br>')}`;
   } else { el.textContent = content; }
   const msgs = document.getElementById('chat-messages');
@@ -579,23 +539,23 @@ function appendBubble(role, content) {
 }
 
 function appendThinking() {
-  const id = 'th-' + Date.now();
+  const id = 'th-'+Date.now();
   const el = document.createElement('div');
-  el.id = id; el.className = 'chat-bubble thinking';
-  el.innerHTML = `<span class="typing-dots"><span></span><span></span><span></span></span> Analizando…`;
+  el.id=id; el.className='chat-bubble thinking';
+  el.innerHTML=`<span class="typing-dots"><span></span><span></span><span></span></span> Analizando…`;
   document.getElementById('chat-messages').appendChild(el);
-  document.getElementById('chat-messages').scrollTop = 99999;
+  document.getElementById('chat-messages').scrollTop=99999;
   return id;
 }
-function removeThinking(id) { document.getElementById(id)?.remove(); }
-function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function removeThinking(id){document.getElementById(id)?.remove();}
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-document.getElementById('chat-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+document.getElementById('chat-input').addEventListener('keydown', e=>{
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}
 });
 
 loadStats();
-setInterval(loadStats, 5 * 60 * 1000);
+setInterval(loadStats, 5*60*1000);
 </script>
 </body>
 </html>
