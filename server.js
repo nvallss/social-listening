@@ -13,6 +13,12 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+  console.error('Faltan variables: SUPABASE_URL =', !!process.env.SUPABASE_URL,
+                '| SUPABASE_ANON_KEY =', !!process.env.SUPABASE_ANON_KEY);
+  process.exit(1);
+}
+process.on('uncaughtException', e => { console.error('Error no controlado:', e); process.exit(1); });
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -173,8 +179,6 @@ app.get('/api/all', async (req, res) => {
 });
 
 // ── SPA fallback ──────────────────────────────────────────────────────────────
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
-app.listen(PORT, () => console.log(`Natura Bisse Dashboard -> http://localhost:${PORT}`));
