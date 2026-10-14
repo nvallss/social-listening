@@ -182,3 +182,8 @@ app.get('/api/all', async (req, res) => {
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// ¡Asegúrate de que esta línea esté al final para que el servidor no se apague!
+app.listen(PORT, () => {
+  console.log(`Natura Bisse Dashboard corriendo en el puerto ${PORT}`);
+});
